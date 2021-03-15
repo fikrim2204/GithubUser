@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_github_background_detail"
+    android:background="@color/black_github_background"
     tools:context=".view.DetailActivity">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -146,6 +146,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_repository"
-        tools:listitem="@layout/item_main" />
+        tools:listitem="@layout/item_repository" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
