@@ -12,4 +12,5 @@
     <color name="black_github_card">#0e1116</color>
     <color name="black_github_appbar">#161b21</color>
     <color name="grey_github">#5b626b</color>
+    <color name="blue_github">#58a6ff</color>
 </resources>
