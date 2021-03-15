@@ -40,6 +40,22 @@
             tools:text="@tools:sample/full_names" />
 
         <TextView
+            android:id="@+id/tv_username_profile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/grey_github"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/tv_name_profile"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="fikrim2204" />
+
+
+        <TextView
             android:id="@+id/tv_repository"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
