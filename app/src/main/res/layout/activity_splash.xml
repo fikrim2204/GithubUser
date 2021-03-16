@@ -11,11 +11,12 @@
         android:id="@+id/animation_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false"
         app:lottie_rawRes="@raw/github_dark_mode" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

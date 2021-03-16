@@ -1,7 +1,5 @@
 package rpl1pnp.fikri.githubuser.adapter
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +14,6 @@ class MainAdapter(private var item: List<User>, private val listener: (User) -> 
     class ViewHolder(private val binding: ItemMainBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(user: User, listener: (User) -> Unit) {
             binding.civProfile.load(getId(binding.root.context, user.avatar))
-            Log.i(TAG, user.avatar)
             binding.tvNameProfile.text = user.name
             binding.tvUsernameProfile.text = user.username
             val follower = "${user.follower} Followers"

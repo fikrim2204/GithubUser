@@ -15,7 +15,7 @@ import rpl1pnp.fikri.githubuser.utils.getJsonDataFromAsset
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: MainAdapter
-    private var user : List<User> = mutableListOf()
+    private var user: List<User> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
