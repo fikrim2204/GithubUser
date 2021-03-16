@@ -25,10 +25,11 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra(USER, it)
             startActivity(intent)
         }
+        binding.rvUserGithub.adapter = adapter
     }
 
     private fun initUser() {
-        TODO("Not yet implemented")
+        val userName =
     }
 
     companion object {
