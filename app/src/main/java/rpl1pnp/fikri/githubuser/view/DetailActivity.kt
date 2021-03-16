@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import rpl1pnp.fikri.githubuser.databinding.ActivityDetailBinding
 import rpl1pnp.fikri.githubuser.model.User
+import rpl1pnp.fikri.githubuser.utils.getId
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
@@ -20,7 +21,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun initUser() {
-        user?.let { binding.civProfile.load(it.img) }
+        user?.let { binding.civProfile.load(getId(this, it.avatar)) }
         binding.tvNameProfile.text = user?.name
         binding.tvUsernameProfile.text = user?.username
         binding.tvNumberFollower.text = user?.follower.toString()

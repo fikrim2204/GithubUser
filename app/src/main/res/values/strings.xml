@@ -3,4 +3,7 @@
     <string name="image_follower">image follower</string>
     <string name="image_following">image following</string>
     <string name="repository">Repository</string>
+    <string name="following">Following</string>
+    <string name="follower">Follower</string>
+    <string name="logo">logo</string>
 </resources>
