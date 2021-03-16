@@ -145,9 +145,6 @@
             android:textSize="16sp"
             android:textStyle="bold"
             app:drawableStartCompat="@drawable/ic_baseline_book_16"
-            app:layout_constraintEnd_toStartOf="repo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_company"
             tools:text="15" />
 
         <TextView
@@ -157,9 +154,6 @@
             android:layout_marginStart="4dp"
             android:textColor="@color/white"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tv_number_repository"
-            app:layout_constraintTop_toBottomOf="@id/tv_company"
             tools:text="@string/repository" />
     </LinearLayout>
 
