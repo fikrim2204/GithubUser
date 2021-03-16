@@ -11,7 +11,7 @@
         android:theme="@style/Theme.GithubUser">
         <activity android:name=".view.DetailActivity"/>
         <activity android:name=".view.MainActivity" />
-        <activity android:name=".view.SplashScreen">
+        <activity android:name=".view.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

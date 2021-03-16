@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initUser() {
-        val jsonFromString = getJsonDataFromAsset(applicationContext, FILE_NAME)
+        val jsonFromString = getJsonDataFromAsset(this, FILE_NAME)
         jsonFromString?.let { Log.i(TAG, it) }
         val jsonType = object : TypeToken<List<User>>() {}.type
 
