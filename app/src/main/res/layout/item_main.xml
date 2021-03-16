@@ -57,7 +57,7 @@
 
 
         <TextView
-            android:id="@+id/tv_repository"
+            android:id="@+id/tv_following"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -68,7 +68,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/civ_profile"
             app:layout_constraintTop_toBottomOf="@id/tv_name_profile"
-            tools:text="10 Repositry" />
+            tools:text="10 Following" />
 
         <TextView
             android:id="@+id/tv_follower"
@@ -80,7 +80,7 @@
             android:layout_marginBottom="4dp"
             android:textColor="@color/grey_github"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tv_repository"
+            app:layout_constraintStart_toEndOf="@id/tv_following"
             app:layout_constraintTop_toBottomOf="@id/tv_name_profile"
             tools:text="10 Followers" />
 
