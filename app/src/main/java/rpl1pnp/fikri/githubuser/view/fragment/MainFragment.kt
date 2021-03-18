@@ -10,12 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import rpl1pnp.fikri.githubuser.R
 import rpl1pnp.fikri.githubuser.adapter.MainAdapter
 import rpl1pnp.fikri.githubuser.databinding.FragmentMainBinding
-import rpl1pnp.fikri.githubuser.model.User
 
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private lateinit var adapter: MainAdapter
-    private var user: List<User> = mutableListOf()
+    private var users: List<Users> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +47,7 @@ class MainFragment : Fragment() {
 
     private fun recycler() {
         binding.rvUserGithub.layoutManager = LinearLayoutManager(activity)
-        adapter = MainAdapter(user) {
+        adapter = MainAdapter(users) {
         }
         binding.rvUserGithub.adapter = adapter
     }

@@ -6,22 +6,21 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import rpl1pnp.fikri.githubuser.adapter.MainAdapter.ViewHolder
 import rpl1pnp.fikri.githubuser.databinding.ItemMainBinding
-import rpl1pnp.fikri.githubuser.model.User
 import rpl1pnp.fikri.githubuser.utils.getId
 
-class MainAdapter(private var item: List<User>, private val listener: (User) -> Unit) :
+class MainAdapter(private var item: List<Users>, private val listener: (Users) -> Unit) :
     RecyclerView.Adapter<ViewHolder>() {
     class ViewHolder(private val binding: ItemMainBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: User, listener: (User) -> Unit) {
-            binding.civProfile.load(getId(binding.root.context, user.avatar))
-            binding.tvNameProfile.text = user.name
-            binding.tvUsernameProfile.text = user.username
-            val follower = "${user.follower} Followers"
-            val following = "${user.following} Following"
+        fun bind(users: Users, listener: (Users) -> Unit) {
+            binding.civProfile.load(getId(binding.root.context, users.avatar))
+            binding.tvNameProfile.text = users.name
+            binding.tvUsernameProfile.text = users.username
+            val follower = "${users.follower} Followers"
+            val following = "${users.following} Following"
             binding.tvFollower.text = follower
             binding.tvFollowing.text = following
             itemView.setOnClickListener {
-                listener(user)
+                listener(users)
             }
         }
 
