@@ -7,4 +7,5 @@
     <string name="follower">Follower</string>
     <string name="logo">logo</string>
     <string name="search">Search</string>
+    <string name="search_hint">Masukkan kata</string>
 </resources>

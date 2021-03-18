@@ -1,11 +1,13 @@
 package rpl1pnp.fikri.githubuser.view.fragment
 
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import rpl1pnp.fikri.githubuser.R
 import rpl1pnp.fikri.githubuser.adapter.MainAdapter
 import rpl1pnp.fikri.githubuser.databinding.FragmentMainBinding
 import rpl1pnp.fikri.githubuser.model.User
@@ -33,6 +35,15 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recycler()
+
+        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.search -> {
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     private fun recycler() {
@@ -41,4 +52,25 @@ class MainFragment : Fragment() {
         }
         binding.rvUserGithub.adapter = adapter
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        val searchManager = context?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView = menu.findItem(R.id.search).actionView as SearchView
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
+        searchView.queryHint = resources.getString(R.string.search_hint)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                TODO("Not yet implemented")
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                TODO("Not yet implemented")
+                return false
+            }
+        })
+    }
+
 }
