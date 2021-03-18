@@ -17,6 +17,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="false"
-        app:lottie_rawRes="@raw/github_dark_mode" />
+        app:lottie_url="https://assets10.lottiefiles.com/packages/lf20_f28ex302.json"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

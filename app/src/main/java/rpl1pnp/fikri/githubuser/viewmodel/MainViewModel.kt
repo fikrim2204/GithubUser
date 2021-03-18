@@ -1,0 +1,88 @@
+package rpl1pnp.fikri.githubuser.viewmodel
+
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import rpl1pnp.fikri.githubuser.model.DataUser
+import rpl1pnp.fikri.githubuser.model.UserResponse
+import rpl1pnp.fikri.githubuser.model.UserSingleResponse
+import rpl1pnp.fikri.githubuser.network.ApiRepo
+
+class MainViewModel : ViewModel() {
+    private val _response = MutableLiveData<List<DataUser>?>()
+    val listResponse: LiveData<List<DataUser>?> = _response
+    private val _responseDetail = MutableLiveData<DataUser?>()
+    val listResponseDetail: LiveData<DataUser?> = _responseDetail
+    private val _responseFailure = MutableLiveData<ResponseBody?>()
+    val listResponseFailure: LiveData<ResponseBody?> = _responseFailure
+    private val _responseFailureDetail = MutableLiveData<ResponseBody?>()
+    val listResponseFailureDetail: LiveData<ResponseBody?> = _responseFailureDetail
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+    private val _isFailed = MutableLiveData<String?>()
+    val failedResponse: LiveData<String?> = _isFailed
+    private val _isFailedDetail = MutableLiveData<String?>()
+    val failedResponseDetail: LiveData<String?> = _isFailedDetail
+
+    companion object {
+        private const val TAG = "MainViewModel"
+    }
+
+    fun getUser(query: String?) {
+        _isLoading.value = true
+        val client = ApiRepo.getApiService().getUser(query)
+        client.enqueue(object : Callback<UserResponse> {
+            override fun onResponse(
+                call: Call<UserResponse>,
+                response: Response<UserResponse>
+            ) {
+                _isLoading.value = false
+                try {
+                    _response.value = response.body()?.items
+                    Log.d(TAG, response.body().toString())
+                } catch (e: Exception) {
+                    _responseFailure.value = response.errorBody()
+                    Log.e(TAG, "Error : ${e.message}")
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                _isLoading.value = false
+                _isFailed.value = t.message
+                Log.e(TAG, "onFailure: ${t.message}")
+            }
+
+        })
+    }
+
+    fun getUserDetail(login: String?) {
+        _isLoading.value = true
+        val client = ApiRepo.getApiService().getUserDetail(login)
+        client.enqueue(object : Callback<UserSingleResponse> {
+            override fun onResponse(
+                call: Call<UserSingleResponse>,
+                response: Response<UserSingleResponse>
+            ) {
+                _isLoading.value = false
+                try {
+                    _responseDetail.value = response.body()?.items
+                } catch (e: Exception) {
+                    _responseFailureDetail.value = response.errorBody()
+                    Log.e(TAG, "Error : ${e.message}")
+                }
+            }
+
+            override fun onFailure(call: Call<UserSingleResponse>, t: Throwable) {
+                _isLoading.value = false
+                _isFailedDetail.value = t.message
+                Log.e(TAG, "onFailure : ${t.message}")
+            }
+
+        })
+    }
+}

@@ -1,24 +1,26 @@
 package rpl1pnp.fikri.githubuser.model
 
-class FollowResponse : ArrayList<FollowResponseItem>()
+class FollowersResponse : ArrayList<DataFollow>()
 
-data class FollowResponseItem(
-    val avatar_url: String? = null,
-    val events_url: String? = null,
-    val followers_url: String? = null,
-    val following_url: String? = null,
-    val gists_url: String? = null,
-    val gravatar_id: String? = null,
-    val html_url: String? = null,
-    val id: Int? = null,
-    val login: String? = null,
-    val node_id: String? = null,
-    val organizations_url: String? = null,
-    val received_events_url: String? = null,
-    val repos_url: String? = null,
-    val site_admin: Boolean? = null,
-    val starred_url: String? = null,
-    val subscriptions_url: String? = null,
-    val type: String? = null,
-    val url: String? = null
+class FollowingResponse : ArrayList<DataFollow>()
+
+data class DataFollow(
+    var avatar_url: String? = null,
+    var events_url: String? = null,
+    var followers_url: String? = null,
+    var following_url: String? = null,
+    var gists_url: String? = null,
+    var gravatar_id: String? = null,
+    var html_url: String? = null,
+    var id: Int? = null,
+    var login: String? = null,
+    var node_id: String? = null,
+    var organizations_url: String? = null,
+    var received_events_url: String? = null,
+    var repos_url: String? = null,
+    var site_admin: Boolean? = null,
+    var starred_url: String? = null,
+    var subscriptions_url: String? = null,
+    var type: String? = null,
+    var url: String? = null
 )

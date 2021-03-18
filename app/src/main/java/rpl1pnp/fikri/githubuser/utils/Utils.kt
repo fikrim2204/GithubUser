@@ -1,7 +1,16 @@
 package rpl1pnp.fikri.githubuser.utils
 
 import android.content.Context
+import android.view.View
 import java.io.IOException
+
+fun loading(loading: Boolean): Int {
+    return if (loading) {
+        View.VISIBLE
+    } else {
+        View.INVISIBLE
+    }
+}
 
 fun getJsonDataFromAsset(context: Context, fileName: String): String? {
     return try {

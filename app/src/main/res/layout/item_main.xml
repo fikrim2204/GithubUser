@@ -43,7 +43,7 @@
                 app:layout_constraintBottom_toTopOf="@id/tv_following"
                 app:layout_constraintEnd_toStartOf="@id/tv_username_profile"
                 app:layout_constraintStart_toEndOf="@id/civ_profile"
-                app:layout_constraintTop_toTopOf="civ"
+                app:layout_constraintTop_toTopOf="@id/civ_profile"
                 tools:text="@tools:sample/full_names" />
 
             <TextView

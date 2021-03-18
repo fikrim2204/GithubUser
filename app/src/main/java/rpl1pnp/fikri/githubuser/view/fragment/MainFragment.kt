@@ -6,19 +6,24 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import rpl1pnp.fikri.githubuser.R
 import rpl1pnp.fikri.githubuser.adapter.MainAdapter
 import rpl1pnp.fikri.githubuser.databinding.FragmentMainBinding
+import rpl1pnp.fikri.githubuser.model.DataUser
+import rpl1pnp.fikri.githubuser.utils.loading
+import rpl1pnp.fikri.githubuser.viewmodel.MainViewModel
 
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private lateinit var adapter: MainAdapter
-    private var users: List<Users> = mutableListOf()
+    private val viewModel: MainViewModel by viewModels()
+    private var users: List<DataUser> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        viewModel.getUser("fikrim2204")
     }
 
     override fun onCreateView(
@@ -32,8 +37,27 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.topAppBar.title = "Github Search"
         recycler()
+
+        viewModel.listResponse.observe(requireActivity(), { item ->
+            viewModel.getUserDetail("fikrim2204")
+            if (item != null) {
+                users = item
+                adapter.user = users
+                adapter.notifyDataSetChanged()
+            }
+        })
+
+        viewModel.listResponseDetail.observe(requireActivity(), {item ->
+            if (item != null) {
+
+            }
+        })
+
+        viewModel.isLoading.observe(requireActivity(), {
+            binding.loading.visibility = loading(it)
+        })
 
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
@@ -47,7 +71,7 @@ class MainFragment : Fragment() {
 
     private fun recycler() {
         binding.rvUserGithub.layoutManager = LinearLayoutManager(activity)
-        adapter = MainAdapter(users) {
+        adapter = MainAdapter {
         }
         binding.rvUserGithub.adapter = adapter
     }
@@ -59,9 +83,9 @@ class MainFragment : Fragment() {
 
         searchView.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
         searchView.queryHint = resources.getString(R.string.search_hint)
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                TODO("Not yet implemented")
+                viewModel.getUser(query)
                 return true
             }
 

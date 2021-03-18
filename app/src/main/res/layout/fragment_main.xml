@@ -34,4 +34,14 @@
             android:layout_height="wrap_content"
             tools:listitem="@layout/item_main" />
     </androidx.core.widget.NestedScrollView>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loading"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:lottie_autoPlay="true"
+        android:layout_gravity="center"
+        app:lottie_url="https://assets5.lottiefiles.com/datafiles/fPx4vaZrul2Fvg9/data.json"
+        app:lottie_loop="false" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

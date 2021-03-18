@@ -4,11 +4,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import rpl1pnp.fikri.githubuser.databinding.ActivityDetailBinding
-import rpl1pnp.fikri.githubuser.utils.getId
+import rpl1pnp.fikri.githubuser.model.DataUser
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
-    private var users: Users? = null
+    private var users: DataUser? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,14 +20,14 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun initUser() {
-        users?.let { binding.civProfile.load(getId(this, it.avatar)) }
+        users?.let { binding.civProfile.load(it.avatar_url) }
         binding.tvNameProfile.text = users?.name
-        binding.tvUsernameProfile.text = users?.username
-        binding.tvNumberFollower.text = users?.follower.toString()
+        binding.tvUsernameProfile.text = users?.login
+        binding.tvNumberFollower.text = users?.followers.toString()
         binding.tvNumberFollowing.text = users?.following.toString()
         binding.tvLocation.text = users?.location
         binding.tvCompany.text = users?.company
-        binding.tvNumberRepository.text = users?.repository.toString()
+        binding.tvNumberRepository.text = users?.public_repos.toString()
     }
 
     companion object {

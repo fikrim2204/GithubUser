@@ -6,16 +6,19 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import rpl1pnp.fikri.githubuser.adapter.MainAdapter.ViewHolder
 import rpl1pnp.fikri.githubuser.databinding.ItemMainBinding
-import rpl1pnp.fikri.githubuser.utils.getId
+import rpl1pnp.fikri.githubuser.model.DataUser
 
-class MainAdapter(private var item: List<Users>, private val listener: (Users) -> Unit) :
+class MainAdapter(
+    private val listener: (DataUser) -> Unit
+) :
     RecyclerView.Adapter<ViewHolder>() {
+    var user: List<DataUser> = mutableListOf()
     class ViewHolder(private val binding: ItemMainBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(users: Users, listener: (Users) -> Unit) {
-            binding.civProfile.load(getId(binding.root.context, users.avatar))
+        fun bind(users: DataUser, listener: (DataUser) -> Unit) {
+            binding.civProfile.load(users.avatar_url)
             binding.tvNameProfile.text = users.name
-            binding.tvUsernameProfile.text = users.username
-            val follower = "${users.follower} Followers"
+            binding.tvUsernameProfile.text = users.login
+            val follower = "${users.followers} Followers"
             val following = "${users.following} Following"
             binding.tvFollower.text = follower
             binding.tvFollowing.text = following
@@ -34,8 +37,8 @@ class MainAdapter(private var item: List<Users>, private val listener: (Users) -
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(item[position], listener)
+        holder.bind(user[position], listener)
     }
 
-    override fun getItemCount(): Int = item.size
+    override fun getItemCount(): Int = user.size
 }
