@@ -13,7 +13,10 @@
         app:cardBackgroundColor="@color/black_github_card"
         app:cardCornerRadius="8dp"
         app:cardElevation="2dp"
-        app:cardMaxElevation="4dp">
+        app:cardMaxElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -24,7 +27,10 @@
                 android:id="@+id/civ_profile"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_margin="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginBottom="4dp"
                 app:civ_border_color="@color/grey_github"
                 app:civ_border_width="1dp"
                 app:layout_constraintEnd_toStartOf="@id/tv_name_profile"
@@ -36,56 +42,61 @@
                 android:id="@+id/tv_name_profile"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="8dp"
+                android:maxWidth="200dp"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/tv_following"
+                app:layout_constraintBottom_toTopOf="@id/description"
                 app:layout_constraintEnd_toStartOf="@id/tv_username_profile"
                 app:layout_constraintStart_toEndOf="@id/civ_profile"
-                app:layout_constraintTop_toTopOf="civ"
-                tools:text="@tools:sample/full_names" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Padang Android " />
 
             <TextView
                 android:id="@+id/tv_username_profile"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="4dp"
                 android:textColor="@color/grey_github"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/tv_following"
+                app:layout_constraintBottom_toTopOf="@id/description"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_name_profile"
-                app:layout_constraintTop_toTopOf="@id/tv_name_profile"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="fikrim2204" />
 
             <TextView
-                android:id="@+id/tv_following"
+                android:id="@+id/description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
+                android:layout_marginEnd="4dp"
                 android:textColor="@color/grey_github"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/tv_follower"
+                app:layout_constraintBottom_toTopOf="@id/tv_location"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@id/tv_name_profile"
                 app:layout_constraintTop_toBottomOf="@id/tv_name_profile"
-                tools:text="10 Following" />
+                tools:text="Software Engineer" />
 
             <TextView
-                android:id="@+id/tv_follower"
+                android:id="@+id/tv_location"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginEnd="4dp"
                 android:layout_marginBottom="4dp"
                 android:textColor="@color/grey_github"
+                app:drawableStartCompat="@drawable/ic_outline_location_on_16"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/tv_following"
-                app:layout_constraintTop_toTopOf="@id/tv_following"
-                tools:text="10 Followers" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tv_name_profile"
+                app:layout_constraintTop_toBottomOf="@id/description"
+                tools:text="Padang" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
-
 </RelativeLayout>
