@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black_github_background"
-    tools:context=".view.MainActivity">
+    tools:context=".view.activity.MainActivity">
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_user_github"

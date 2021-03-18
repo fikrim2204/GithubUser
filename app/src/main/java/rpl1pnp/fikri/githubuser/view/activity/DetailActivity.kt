@@ -1,4 +1,4 @@
-package rpl1pnp.fikri.githubuser.view
+package rpl1pnp.fikri.githubuser.view.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
