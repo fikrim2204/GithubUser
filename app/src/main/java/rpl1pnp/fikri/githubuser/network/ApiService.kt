@@ -4,10 +4,10 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import rpl1pnp.fikri.githubuser.model.DataUser
 import rpl1pnp.fikri.githubuser.model.FollowersResponse
 import rpl1pnp.fikri.githubuser.model.FollowingResponse
 import rpl1pnp.fikri.githubuser.model.UserResponse
-import rpl1pnp.fikri.githubuser.model.UserSingleResponse
 
 interface ApiService {
     @GET(Constant.SEARCH + Constant.USER)
@@ -18,7 +18,7 @@ interface ApiService {
     @GET(Constant.USER + "/{login}")
     fun getUserDetail(
         @Path("login") login: String?
-    ): Call<UserSingleResponse>
+    ): Call<DataUser>
 
     @GET(Constant.USER+"/login"+Constant.FOLLOWERS)
     fun getFollowers(

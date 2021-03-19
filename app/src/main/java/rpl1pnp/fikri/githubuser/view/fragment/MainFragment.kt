@@ -3,9 +3,9 @@ package rpl1pnp.fikri.githubuser.view.fragment
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -24,7 +24,6 @@ class MainFragment : Fragment() {
     private val viewModel: MainViewModel by viewModels()
     private var users: List<DataUser> = mutableListOf()
 
-
     companion object {
         const val TAG = "MainFragment"
         const val EMPTY_QUERY = ""
@@ -33,7 +32,6 @@ class MainFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        viewModel.getUser("ari")
     }
 
     override fun onCreateView(
@@ -47,13 +45,21 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+        (activity as AppCompatActivity).supportActionBar?.apply {
+            title = "Github User"
+        }
+        recyclerView()
+        viewModelObserve()
+    }
+
+    private fun viewModelObserve() {
         viewModel.listResponse.observe(requireActivity(), { item ->
             if (item != null) {
-                Log.i(TAG, item.toString())
                 users = item
-                Log.i(TAG, "user : $users")
                 adapter.user = users
                 adapter.notifyDataSetChanged()
+                searchImage()
             }
         })
 
@@ -70,20 +76,9 @@ class MainFragment : Fragment() {
         viewModel.failedResponse.observe(requireActivity(), {
             Toast.makeText(activity, it.toString(), Toast.LENGTH_SHORT).show()
         })
-
-        recycler()
-
-//        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
-//            when (menuItem.itemId) {
-//                R.id.search -> {
-//                    true
-//                }
-//                else -> false
-//            }
-//        }
     }
 
-    private fun recycler() {
+    private fun recyclerView() {
         binding.rvUserGithub.layoutManager = LinearLayoutManager(activity)
         adapter = MainAdapter {
             val login = it.login
@@ -94,7 +89,8 @@ class MainFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.top_app_bar, menu)
+        inflater.inflate(R.menu.top_app_bar_main, menu)
+
         val searchManager =
             requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView = menu.findItem(R.id.search).actionView as SearchView
@@ -104,16 +100,18 @@ class MainFragment : Fragment() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 viewModel.getUser(query)
-                Toast.makeText(requireActivity(), query, Toast.LENGTH_SHORT).show()
-                Log.d(TAG, query.toString())
                 return true
             }
 
             override fun onQueryTextChange(query: String?): Boolean {
-                return if (query?.length!! > 3) {
-                    viewModel.getUser(query)
-                    true
-                } else false
+                return if (query?.length == null) {
+                    false
+                } else {
+                    if (query.length > 3) {
+                        viewModel.getUser(query)
+                        true
+                    } else false
+                }
             }
         })
         searchView.setOnCloseListener {
@@ -121,5 +119,13 @@ class MainFragment : Fragment() {
             false
         }
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    private fun searchImage() {
+        if (users.isNotEmpty()) {
+            binding.ivSearch.visibility = View.GONE
+        } else {
+            binding.ivSearch.visibility = View.VISIBLE
+        }
     }
 }
