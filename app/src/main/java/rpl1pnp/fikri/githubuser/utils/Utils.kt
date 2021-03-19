@@ -8,7 +8,7 @@ fun loading(loading: Boolean): Int {
     return if (loading) {
         View.VISIBLE
     } else {
-        View.INVISIBLE
+        View.GONE
     }
 }
 

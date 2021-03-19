@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -14,7 +15,9 @@ import rpl1pnp.fikri.githubuser.databinding.FragmentDetailBinding
 import rpl1pnp.fikri.githubuser.view.sectionpage.SectionPageAdapter
 
 class DetailFragment : Fragment() {
+    private val args: DetailFragmentArgs by navArgs()
     private lateinit var binding: FragmentDetailBinding
+    private var login: String? = null
 
     companion object {
         @StringRes
@@ -35,6 +38,7 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        login = args.login
 
         val sectionPageAdapter = activity?.let { SectionPageAdapter(it) }
         val viewPager: ViewPager2 = binding.viewPager
