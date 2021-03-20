@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import rpl1pnp.fikri.githubuser.R
 import rpl1pnp.fikri.githubuser.adapter.MainAdapter
 import rpl1pnp.fikri.githubuser.databinding.FragmentMainBinding
-import rpl1pnp.fikri.githubuser.model.DataUser
+import rpl1pnp.fikri.githubuser.model.UserSingleResponse
 import rpl1pnp.fikri.githubuser.utils.loading
 import rpl1pnp.fikri.githubuser.viewmodel.MainViewModel
 
@@ -22,7 +22,7 @@ class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private lateinit var adapter: MainAdapter
     private val viewModel: MainViewModel by viewModels()
-    private var users: List<DataUser> = mutableListOf()
+    private var userSingleResponses: List<UserSingleResponse> = mutableListOf()
 
     companion object {
         const val TAG = "MainFragment"
@@ -56,8 +56,8 @@ class MainFragment : Fragment() {
     private fun viewModelObserve() {
         viewModel.listResponse.observe(requireActivity(), { item ->
             if (item != null) {
-                users = item
-                adapter.user = users
+                userSingleResponses = item
+                adapter.userSingleResponse = userSingleResponses
                 adapter.notifyDataSetChanged()
                 searchImage()
             }
@@ -109,7 +109,7 @@ class MainFragment : Fragment() {
 //                    false
 //                } else {
 //                    if (query.length % 3 == 0) {
-//                        viewModel.getUser(query)
+//                        viewModel.getUserSingleResponse(query)
 //                        true
 //                    } else false
 //                }
@@ -124,7 +124,7 @@ class MainFragment : Fragment() {
     }
 
     private fun searchImage() {
-        if (users.isNotEmpty()) {
+        if (userSingleResponses.isNotEmpty()) {
             binding.ivSearch.visibility = View.GONE
         } else {
             binding.ivSearch.visibility = View.VISIBLE

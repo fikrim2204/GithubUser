@@ -1,6 +1,7 @@
 package rpl1pnp.fikri.githubuser.view.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import rpl1pnp.fikri.githubuser.R
 import rpl1pnp.fikri.githubuser.databinding.FragmentDetailBinding
-import rpl1pnp.fikri.githubuser.model.DataUser
+import rpl1pnp.fikri.githubuser.model.UserSingleResponse
 import rpl1pnp.fikri.githubuser.utils.loading
 import rpl1pnp.fikri.githubuser.view.sectionpage.SectionPageAdapter
 import rpl1pnp.fikri.githubuser.viewmodel.DetailViewModel
@@ -26,7 +27,7 @@ class DetailFragment : Fragment() {
     private val viewModel: DetailViewModel by viewModels()
     private lateinit var binding: FragmentDetailBinding
     private var login: String? = null
-    private var userDetail: DataUser? = null
+    private var userDetail: UserSingleResponse? = null
 
     companion object {
         @StringRes
@@ -71,7 +72,8 @@ class DetailFragment : Fragment() {
         TabLayoutMediator(tabs, viewPager) { tab, position ->
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
-
+        sectionPageAdapter?.login = login
+        Log.d("HMM", sectionPageAdapter?.login.toString())
         binding.appBar.elevation = 0f
     }
 
@@ -79,25 +81,25 @@ class DetailFragment : Fragment() {
         viewModel.isLoading.observe(requireActivity(), { item ->
             binding.loading.visibility = loading(item)
         })
-        viewModel.listResponseDetail.observe(requireActivity(), { item ->
-            userDetail = item
-            binding.civProfile.load(userDetail?.avatar_url)
-            binding.tvNameProfile.text = userDetail?.name
-            binding.tvUsernameProfile.text = userDetail?.login
-            binding.tvNumberFollower.text = userDetail?.followers.toString()
-            binding.tvNumberFollowing.text = userDetail?.following.toString()
-            if (userDetail?.company == null) {
+        viewModel.listResponseDetail.observe(requireActivity(), { userDetail ->
+            this.userDetail = userDetail
+            binding.civProfile.load(this.userDetail?.avatar_url)
+            binding.tvNameProfile.text = this.userDetail?.name
+            binding.tvUsernameProfile.text = this.userDetail?.login
+            binding.tvNumberFollower.text = this.userDetail?.followers.toString()
+            binding.tvNumberFollowing.text = this.userDetail?.following.toString()
+            if (this.userDetail?.company == null) {
                 binding.tvCompany.visibility = View.GONE
             } else {
                 binding.tvCompany.visibility = View.VISIBLE
-                binding.tvCompany.text = userDetail?.company
+                binding.tvCompany.text = this.userDetail?.company
             }
-            binding.tvNumberRepository.text = userDetail?.public_repos.toString()
-            if (userDetail?.location == null) {
+            binding.tvNumberRepository.text = this.userDetail?.public_repos.toString()
+            if (this.userDetail?.location == null) {
                 binding.tvLocation.visibility = View.GONE
             } else {
                 binding.tvLocation.visibility = View.VISIBLE
-                binding.tvLocation.text = userDetail?.location
+                binding.tvLocation.text = this.userDetail?.location
             }
         })
         viewModel.codeError.observe(requireActivity(), { item ->

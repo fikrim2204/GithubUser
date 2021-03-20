@@ -7,18 +7,19 @@ import androidx.lifecycle.ViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import rpl1pnp.fikri.githubuser.model.DataUser
+import rpl1pnp.fikri.githubuser.model.DataFollow
 import rpl1pnp.fikri.githubuser.model.FollowersResponse
-import rpl1pnp.fikri.githubuser.model.FollowingResponse
+import rpl1pnp.fikri.githubuser.model.UserSingleResponse
 import rpl1pnp.fikri.githubuser.network.ApiRepo
+import rpl1pnp.fikri.githubuser.network.Constant
 
 class DetailViewModel : ViewModel() {
-    private val _responseDetail = MutableLiveData<DataUser?>()
-    val listResponseDetail: LiveData<DataUser?> = _responseDetail
-    private val _responseFollowers = MutableLiveData<FollowersResponse?>()
-    val listResponseFollowers: LiveData<FollowersResponse?> = _responseFollowers
-    private val _responseFollowing = MutableLiveData<FollowingResponse?>()
-    val listResponseFollowing: LiveData<FollowingResponse?> = _responseFollowing
+    private val _responseDetail = MutableLiveData<UserSingleResponse>()
+    val listResponseDetail: LiveData<UserSingleResponse> = _responseDetail
+    private val _responseFollowers = MutableLiveData<ArrayList<DataFollow>?>()
+    val listResponseFollow: LiveData<ArrayList<DataFollow>?> = _responseFollowers
+    private val _responseFollowing = MutableLiveData<ArrayList<DataFollow>?>()
+    val listResponseFollowing: LiveData<ArrayList<DataFollow>?> = _responseFollowing
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
     private val _codeError = MutableLiveData<String?>()
@@ -30,11 +31,11 @@ class DetailViewModel : ViewModel() {
 
     fun getUserDetail(login: String?) {
         _isLoading.value = true
-        val client = ApiRepo.getApiService().getUserDetail(login)
-        client.enqueue(object : Callback<DataUser> {
+        val client = ApiRepo.getApiService().getUserDetail(Constant.AUTHORIZATION, login)
+        client.enqueue(object : Callback<UserSingleResponse> {
             override fun onResponse(
-                call: Call<DataUser>,
-                response: Response<DataUser>
+                call: Call<UserSingleResponse>,
+                response: Response<UserSingleResponse>
             ) {
                 _isLoading.value = false
                 try {
@@ -46,7 +47,7 @@ class DetailViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<DataUser>, t: Throwable) {
+            override fun onFailure(call: Call<UserSingleResponse>, t: Throwable) {
                 _isLoading.value = false
                 _codeError.value = t.message
                 Log.e(TAG, "onFailure : ${t.message}")
@@ -57,7 +58,7 @@ class DetailViewModel : ViewModel() {
 
     fun getFollowers(login: String?) {
         _isLoading.value = true
-        val client = ApiRepo.getApiService().getFollowers(login)
+        val client = ApiRepo.getApiService().getFollowers(Constant.AUTHORIZATION, login)
         client.enqueue(object : Callback<FollowersResponse> {
             override fun onResponse(
                 call: Call<FollowersResponse>,
@@ -79,11 +80,11 @@ class DetailViewModel : ViewModel() {
 
     fun getFollowing(login: String?) {
         _isLoading.value = true
-        val client = ApiRepo.getApiService().getFollowing(login)
-        client.enqueue(object : Callback<FollowingResponse> {
+        val client = ApiRepo.getApiService().getFollowing(Constant.AUTHORIZATION, login)
+        client.enqueue(object : Callback<FollowersResponse> {
             override fun onResponse(
-                call: Call<FollowingResponse>,
-                response: Response<FollowingResponse>
+                call: Call<FollowersResponse>,
+                response: Response<FollowersResponse>
             ) {
                 try {
                     _responseFollowing.value = response.body()
@@ -92,7 +93,7 @@ class DetailViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<FollowingResponse>, t: Throwable) {
+            override fun onFailure(call: Call<FollowersResponse>, t: Throwable) {
                 _isLoading.value = false
                 _codeError.value = t.message
             }

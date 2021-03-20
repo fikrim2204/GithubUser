@@ -8,15 +8,16 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import rpl1pnp.fikri.githubuser.model.DataUser
+import rpl1pnp.fikri.githubuser.model.UserSingleResponse
 import rpl1pnp.fikri.githubuser.model.UserResponse
 import rpl1pnp.fikri.githubuser.network.ApiRepo
+import rpl1pnp.fikri.githubuser.network.Constant
 
 class MainViewModel : ViewModel() {
-    private val _response = MutableLiveData<List<DataUser>?>()
-    val listResponse: LiveData<List<DataUser>?> = _response
-    private val _responseDetail = MutableLiveData<DataUser?>()
-    val listResponseDetail: LiveData<DataUser?> = _responseDetail
+    private val _response = MutableLiveData<List<UserSingleResponse>?>()
+    val listResponse: LiveData<List<UserSingleResponse>?> = _response
+    private val _responseDetail = MutableLiveData<UserSingleResponse?>()
+    val listResponseDetail: LiveData<UserSingleResponse?> = _responseDetail
     private val _responseFailure = MutableLiveData<ResponseBody?>()
     val listResponseFailure: LiveData<ResponseBody?> = _responseFailure
     private val _isLoading = MutableLiveData<Boolean>()
@@ -30,7 +31,7 @@ class MainViewModel : ViewModel() {
 
     fun getUser(query: String?) {
         _isLoading.value = true
-        val client = ApiRepo.getApiService().getUser(query)
+        val client = ApiRepo.getApiService().getUser(Constant.AUTHORIZATION, query)
         client.enqueue(object : Callback<UserResponse> {
             override fun onResponse(
                 call: Call<UserResponse>,

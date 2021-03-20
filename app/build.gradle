@@ -5,6 +5,9 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
 }
 
+def STRING = 'String'
+def TOKEN = '"' + token + '"' ?: '" "'
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -23,6 +26,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField(STRING, "TOKEN", TOKEN)
+        }
+        debug{
+            buildConfigField(STRING, "TOKEN", TOKEN)
         }
     }
 

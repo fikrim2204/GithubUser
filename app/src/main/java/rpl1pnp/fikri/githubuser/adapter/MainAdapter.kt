@@ -7,15 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import rpl1pnp.fikri.githubuser.adapter.MainAdapter.ViewHolder
 import rpl1pnp.fikri.githubuser.databinding.ItemMainBinding
-import rpl1pnp.fikri.githubuser.model.DataUser
+import rpl1pnp.fikri.githubuser.model.UserSingleResponse
 
 class MainAdapter(
-    private val listener: (DataUser) -> Unit
+    private val listener: (UserSingleResponse) -> Unit
 ) :
     RecyclerView.Adapter<ViewHolder>() {
-    var user: List<DataUser> = mutableListOf()
+    var userSingleResponse: List<UserSingleResponse> = mutableListOf()
     class ViewHolder(private val binding: ItemMainBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(users: DataUser, listener: (DataUser) -> Unit) {
+        fun bind(users: UserSingleResponse, listener: (UserSingleResponse) -> Unit) {
             binding.civProfile.load(users.avatar_url)
             Log.i("MainAdapter", users.login.toString())
             binding.tvUsernameProfile.text = users.login
@@ -32,8 +32,8 @@ class MainAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(user[position], listener)
+        holder.bind(userSingleResponse[position], listener)
     }
 
-    override fun getItemCount(): Int = user.size
+    override fun getItemCount(): Int = userSingleResponse.size
 }

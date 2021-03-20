@@ -32,6 +32,14 @@
             tools:listitem="@layout/item_main" />
     </androidx.core.widget.NestedScrollView>
 
+    <ImageView
+        android:id="@+id/iv_search"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/search_image"
+        android:src="@drawable/loupe" />
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/loading"
         android:layout_width="150dp"
@@ -40,14 +48,6 @@
         android:visibility="gone"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/loading"/>
-
-    <ImageView
-        android:id="@+id/iv_search"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:contentDescription="@string/search_image"
-        android:src="@drawable/loupe" />
+        app:lottie_rawRes="@raw/loading" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

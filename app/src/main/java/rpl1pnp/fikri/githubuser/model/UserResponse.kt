@@ -5,18 +5,12 @@ import kotlinx.parcelize.Parcelize
 
 data class UserResponse(
     val incomplete_results: Boolean? = null,
-    val items: List<DataUser>? = null,
-    val total_count: Int? = null
-)
-
-data class UserSingleResponse(
-    val incomplete_results: Boolean? = null,
-    val items: DataUser? = null,
+    val items: List<UserSingleResponse>? = null,
     val total_count: Int? = null
 )
 
 @Parcelize
-data class DataUser(
+data class UserSingleResponse(
     var avatar_url: String? = null,
     var bio: String? = null,
     var blog: String? = null,
