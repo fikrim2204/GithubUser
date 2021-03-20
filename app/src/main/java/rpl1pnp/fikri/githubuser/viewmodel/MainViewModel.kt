@@ -37,6 +37,7 @@ class MainViewModel : ViewModel() {
                 response: Response<UserResponse>
             ) {
                 _isLoading.value = false
+                _response.value = null
                 try {
                     _response.value = response.body()?.items
                     Log.d(TAG, response.body().toString())

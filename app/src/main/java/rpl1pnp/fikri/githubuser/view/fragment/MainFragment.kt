@@ -104,14 +104,16 @@ class MainFragment : Fragment() {
             }
 
             override fun onQueryTextChange(query: String?): Boolean {
-                return if (query?.length == null) {
-                    false
-                } else {
-                    if (query.length > 3) {
-                        viewModel.getUser(query)
-                        true
-                    } else false
-                }
+//                return if (query?.length == null) {
+//                    searchView.setQuery(EMPTY_QUERY, true)
+//                    false
+//                } else {
+//                    if (query.length % 3 == 0) {
+//                        viewModel.getUser(query)
+//                        true
+//                    } else false
+//                }
+                return false
             }
         })
         searchView.setOnCloseListener {
