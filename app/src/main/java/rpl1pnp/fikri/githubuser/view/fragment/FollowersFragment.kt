@@ -30,13 +30,15 @@ class FollowersFragment : Fragment() {
     companion object {
         const val EXTRA_LOGIN = "extra_login"
         const val PREFS_NAME = "Preferences"
-        const val LOGIN = "key.login"
+        const val LOGIN = "login"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedPref =
-            requireActivity().getSharedPreferences(MainFragment.PREFS_NAME, Context.MODE_PRIVATE)
+            requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        login = getLogin()
+        viewModel.getFollowers(login)
     }
 
     override fun onCreateView(
@@ -51,8 +53,7 @@ class FollowersFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModelObserve()
         initRecycler()
-        login = getLogin()
-        viewModel.getFollowers(login)
+        Log.d("TAG", "$login")
     }
 
     private fun initRecycler() {
@@ -68,7 +69,7 @@ class FollowersFragment : Fragment() {
     }
 
     private fun viewModelObserve() {
-        Log.d("TAG", "viewModelObserve : $login")
+        Log.d("TAGFollowersFragment", "viewModelObserve : $login")
 
         viewModel.listResponseFollowers.observe(requireActivity(), { item ->
             if (item != null) {

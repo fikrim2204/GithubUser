@@ -27,13 +27,13 @@ class FollowingFragment : Fragment() {
     companion object {
         const val EXTRA_LOGIN = "extra_login"
         const val PREFS_NAME = "Preferences"
-        const val LOGIN = "key.login"
+        const val LOGIN = "login"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedPref =
-            requireActivity().getSharedPreferences(MainFragment.PREFS_NAME, Context.MODE_PRIVATE)
+            requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         login = getLogin()
         viewModel.getFollowing(login)
     }
@@ -67,5 +67,5 @@ class FollowingFragment : Fragment() {
         binding.rvFollowing.adapter = adapter
     }
 
-    private fun getLogin(): String? = sharedPref.getString(FollowersFragment.LOGIN, null)
+    private fun getLogin(): String? = sharedPref.getString(LOGIN, null)
 }
