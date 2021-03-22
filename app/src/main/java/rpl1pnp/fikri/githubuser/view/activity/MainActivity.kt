@@ -4,8 +4,8 @@ import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModels()
     private var userSingleResponses: List<UserSingleResponse> = mutableListOf()
     var login: String? = null
-    lateinit var sharedPref: SharedPreferences
 
     companion object {
         const val EMPTY_QUERY = "empty_query"
@@ -108,6 +107,7 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     if (query.length > 3) {
                         viewModel.getUser(query)
+                        Log.d("TAG", "${viewModel.getUser(query)}")
                         true
                     } else false
                 }
