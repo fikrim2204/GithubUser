@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    tools:context=".view.fragment.DetailFollowFragment">
+    android:background="@color/black_github_background"
+    tools:context=".view.activity.DetailActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:liftOnScroll="true">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
             app:title="@string/app_name"
             app:titleTextColor="@color/blue_github" />
 
@@ -180,10 +182,17 @@
             app:tabTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>
 
+    <!--    <androidx.core.widget.NestedScrollView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">-->
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+    <!--    </androidx.core.widget.NestedScrollView>-->
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/loading"
@@ -195,4 +204,4 @@
         app:lottie_loop="false"
         app:lottie_url="https://assets5.lottiefiles.com/datafiles/fPx4vaZrul2Fvg9/data.json" />
 
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -13,4 +13,5 @@
     <string name="tab_followers">Followers</string>
     <string name="tab_following">Following</string>
     <string name="search_image">Search Image</string>
+    <string name="user_not_found">User tidak ditemukan!</string>
 </resources>

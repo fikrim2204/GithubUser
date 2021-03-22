@@ -1,21 +1,25 @@
 package rpl1pnp.fikri.githubuser.view.fragment
 
+import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import rpl1pnp.fikri.githubuser.R
 import rpl1pnp.fikri.githubuser.adapter.MainAdapter
 import rpl1pnp.fikri.githubuser.databinding.FragmentMainBinding
 import rpl1pnp.fikri.githubuser.model.UserSingleResponse
 import rpl1pnp.fikri.githubuser.utils.loading
+import rpl1pnp.fikri.githubuser.view.activity.DetailActivity
 import rpl1pnp.fikri.githubuser.viewmodel.MainViewModel
 
 class MainFragment : Fragment() {
@@ -23,14 +27,19 @@ class MainFragment : Fragment() {
     private lateinit var adapter: MainAdapter
     private val viewModel: MainViewModel by viewModels()
     private var userSingleResponses: List<UserSingleResponse> = mutableListOf()
+    var login: String? = null
+    lateinit var sharedPref: SharedPreferences
 
     companion object {
         const val TAG = "MainFragment"
         const val EMPTY_QUERY = ""
+        val PREFS_NAME = "Preferences"
+        val LOGIN = "key.login"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sharedPref = requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         setHasOptionsMenu(true)
     }
 
@@ -55,11 +64,11 @@ class MainFragment : Fragment() {
 
     private fun viewModelObserve() {
         viewModel.listResponse.observe(requireActivity(), { item ->
+            notFound(item)
             if (item != null) {
                 userSingleResponses = item
                 adapter.userSingleResponse = userSingleResponses
                 adapter.notifyDataSetChanged()
-                searchImage()
             }
         })
 
@@ -70,6 +79,7 @@ class MainFragment : Fragment() {
         })
 
         viewModel.isLoading.observe(requireActivity(), {
+            searchImage(it)
             binding.loading.visibility = loading(it)
         })
 
@@ -81,9 +91,14 @@ class MainFragment : Fragment() {
     private fun recyclerView() {
         binding.rvUserGithub.layoutManager = LinearLayoutManager(activity)
         adapter = MainAdapter {
-            val login = it.login
-            val action = MainFragmentDirections.actionMainFragmentToDetailFragment(login)
-            findNavController().navigate(action)
+            login = it.login
+            selectLogin(login)
+            val intent = Intent(requireActivity(), DetailActivity::class.java)
+            intent.putExtra("LOGIN", login)
+            startActivity(intent)
+//            val action = MainFragmentDirections.actionMainFragmentToDetailFragment(login)
+//            sendDataToOtherFragment(login)
+//            findNavController().navigate(action)
         }
         binding.rvUserGithub.adapter = adapter
     }
@@ -100,20 +115,20 @@ class MainFragment : Fragment() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 viewModel.getUser(query)
+                hideKeyboard()
                 return true
             }
 
             override fun onQueryTextChange(query: String?): Boolean {
-//                return if (query?.length == null) {
-//                    searchView.setQuery(EMPTY_QUERY, true)
-//                    false
-//                } else {
-//                    if (query.length % 3 == 0) {
-//                        viewModel.getUserSingleResponse(query)
-//                        true
-//                    } else false
-//                }
-                return false
+                return if (query?.length == null) {
+                    searchView.setQuery(EMPTY_QUERY, true)
+                    false
+                } else {
+                    if (query.length > 3) {
+                        viewModel.getUser(query)
+                        true
+                    } else false
+                }
             }
         })
         searchView.setOnCloseListener {
@@ -123,11 +138,35 @@ class MainFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    private fun searchImage() {
-        if (userSingleResponses.isNotEmpty()) {
+    private fun searchImage(boolean: Boolean) {
+        if (boolean) {
             binding.ivSearch.visibility = View.GONE
+        }
+    }
+
+    private fun notFound(item: List<UserSingleResponse>?) {
+        if (item?.size != 0) {
+            binding.ivSearch.visibility = View.GONE
+            binding.tvNotFound.visibility = View.GONE
         } else {
             binding.ivSearch.visibility = View.VISIBLE
+            binding.tvNotFound.visibility = View.VISIBLE
         }
+    }
+
+    fun Fragment.hideKeyboard() {
+        view?.let { activity?.hideKeyboard(it) }
+    }
+
+    private fun Context.hideKeyboard(view: View) {
+        val inputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    private fun selectLogin(login: String?) {
+        val editor = sharedPref.edit()
+        editor.putString(LOGIN, login)
+        editor.apply()
     }
 }

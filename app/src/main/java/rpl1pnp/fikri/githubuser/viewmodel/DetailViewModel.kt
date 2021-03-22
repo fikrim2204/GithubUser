@@ -17,7 +17,7 @@ class DetailViewModel : ViewModel() {
     private val _responseDetail = MutableLiveData<UserSingleResponse>()
     val listResponseDetail: LiveData<UserSingleResponse> = _responseDetail
     private val _responseFollowers = MutableLiveData<ArrayList<DataFollow>?>()
-    val listResponseFollow: LiveData<ArrayList<DataFollow>?> = _responseFollowers
+    val listResponseFollowers: LiveData<ArrayList<DataFollow>?> = _responseFollowers
     private val _responseFollowing = MutableLiveData<ArrayList<DataFollow>?>()
     val listResponseFollowing: LiveData<ArrayList<DataFollow>?> = _responseFollowing
     private val _isLoading = MutableLiveData<Boolean>()

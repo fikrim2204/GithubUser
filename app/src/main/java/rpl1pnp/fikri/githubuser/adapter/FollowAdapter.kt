@@ -7,16 +7,17 @@ import coil.load
 import rpl1pnp.fikri.githubuser.databinding.ItemMainBinding
 import rpl1pnp.fikri.githubuser.model.DataFollow
 
-class FollowersAdapter(
+class FollowAdapter(
     private val listener: (DataFollow) -> Unit
-) : RecyclerView.Adapter<FollowersAdapter.ViewHolder>() {
-    var followers: ArrayList<DataFollow> = arrayListOf()
+) : RecyclerView.Adapter<FollowAdapter.ViewHolder>() {
+    var follow: ArrayList<DataFollow> = arrayListOf()
+
     class ViewHolder(private val binding: ItemMainBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(follow: DataFollow, listener: (DataFollow) -> Unit) {
             binding.civProfile.load(follow.avatar_url)
             binding.tvUsernameProfile.text = follow.login
-            itemView.setOnClickListener{
+            itemView.setOnClickListener {
                 listener(follow)
             }
         }
@@ -29,8 +30,8 @@ class FollowersAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(followers[position], listener)
+        holder.bind(follow[position], listener)
     }
 
-    override fun getItemCount(): Int = followers.size
+    override fun getItemCount(): Int = follow.size
 }
