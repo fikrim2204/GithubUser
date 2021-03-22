@@ -19,7 +19,6 @@ import rpl1pnp.fikri.githubuser.adapter.MainAdapter
 import rpl1pnp.fikri.githubuser.databinding.ActivityMainBinding
 import rpl1pnp.fikri.githubuser.model.UserSingleResponse
 import rpl1pnp.fikri.githubuser.utils.loading
-import rpl1pnp.fikri.githubuser.view.fragment.MainFragment
 import rpl1pnp.fikri.githubuser.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -31,15 +30,14 @@ class MainActivity : AppCompatActivity() {
     lateinit var sharedPref: SharedPreferences
 
     companion object {
-        const val PREFS_NAME = "Preferences"
-        const val LOGIN = "login"
+        const val EMPTY_QUERY = "empty_query"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        binding.ivSearch.visibility = View.VISIBLE
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {
@@ -79,7 +77,6 @@ class MainActivity : AppCompatActivity() {
         binding.rvUserGithub.layoutManager = LinearLayoutManager(this)
         adapter = MainAdapter {
             login = it.login
-            selectLogin(login)
             val intent = Intent(this, DetailActivity::class.java)
             intent.putExtra("LOGIN", login)
             startActivity(intent)
@@ -106,7 +103,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(query: String?): Boolean {
                 return if (query?.length == null) {
-                    searchView.setQuery(MainFragment.EMPTY_QUERY, true)
+                    searchView.setQuery(EMPTY_QUERY, true)
                     false
                 } else {
                     if (query.length > 3) {
@@ -117,7 +114,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
         searchView.setOnCloseListener {
-            searchView.setQuery(MainFragment.EMPTY_QUERY, true)
+            searchView.setQuery(EMPTY_QUERY, true)
             false
         }
         return super.onCreateOptionsMenu(menu)
@@ -147,11 +144,5 @@ class MainActivity : AppCompatActivity() {
         val inputMethodManager =
             getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-    }
-
-    private fun selectLogin(login: String?) {
-        val editor = sharedPref.edit()
-        editor.putString(LOGIN, login)
-        editor.apply()
     }
 }

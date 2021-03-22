@@ -35,12 +35,14 @@ class DetailActivity : AppCompatActivity() {
         login = intent.getStringExtra("LOGIN")
         setSupportActionBar(binding.toolbar)
         viewPager()
-        supportActionBar?.apply {
-            title = login
-        }
+
         viewModel.getUserDetail(login)
         viewModel.listResponseDetail.observe(this, { item ->
             userDetail = item
+            supportActionBar?.apply {
+                title = userDetail?.login
+            }
+            viewModel.selectItem(userDetail?.login)
             binding.civProfile.load(this.userDetail?.avatar_url)
             binding.tvNameProfile.text = this.userDetail?.name
             binding.tvUsernameProfile.text = this.userDetail?.login

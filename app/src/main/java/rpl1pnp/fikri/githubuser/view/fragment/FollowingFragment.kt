@@ -1,40 +1,28 @@
 package rpl1pnp.fikri.githubuser.view.fragment
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import rpl1pnp.fikri.githubuser.adapter.FollowAdapter
-import rpl1pnp.fikri.githubuser.databinding.ActivityDetailBinding
 import rpl1pnp.fikri.githubuser.databinding.FragmentFollowingBinding
 import rpl1pnp.fikri.githubuser.model.DataFollow
 import rpl1pnp.fikri.githubuser.viewmodel.DetailViewModel
 
 class FollowingFragment : Fragment() {
     private lateinit var binding: FragmentFollowingBinding
-    private lateinit var detailBinding: ActivityDetailBinding
     private lateinit var adapter: FollowAdapter
     private var following: ArrayList<DataFollow> = arrayListOf()
-    private val viewModel: DetailViewModel by viewModels()
+    private val viewModel: DetailViewModel by activityViewModels()
     private var login: String? = null
     lateinit var sharedPref: SharedPreferences
 
-    companion object {
-        const val EXTRA_LOGIN = "extra_login"
-        const val PREFS_NAME = "Preferences"
-        const val LOGIN = "login"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedPref =
-            requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        login = getLogin()
         viewModel.getFollowing(login)
     }
 
@@ -49,6 +37,11 @@ class FollowingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModelObserve()
+        recyclerView()
+    }
+
+    private fun viewModelObserve() {
         viewModel.listResponseFollowing.observe(requireActivity(), { item ->
             if (item != null) {
                 following = item
@@ -56,16 +49,18 @@ class FollowingFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             }
         })
-        recyclerView()
+        viewModel.selectedItem.observe(requireActivity(), { item ->
+            login = item
+            viewModel.getFollowing(login)
+        })
     }
 
     private fun recyclerView() {
         binding.rvFollowing.layoutManager = LinearLayoutManager(activity)
         adapter = FollowAdapter {
-            val login = it.login
+            val loginFollowing = it.login
+            viewModel.getUserDetail(loginFollowing)
         }
         binding.rvFollowing.adapter = adapter
     }
-
-    private fun getLogin(): String? = sharedPref.getString(LOGIN, null)
 }

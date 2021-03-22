@@ -22,8 +22,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="?attr/actionBarSize"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="?attr/actionBarSize">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/civ_profile"
@@ -193,26 +193,24 @@
             app:tabTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-        </androidx.core.widget.NestedScrollView>
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-    <com.airbnb.lottie.LottieAnimationView
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/loading"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:indeterminate="true"
         android:visibility="gone"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="false"
-        app:lottie_url="https://assets5.lottiefiles.com/datafiles/fPx4vaZrul2Fvg9/data.json" />
-
+        app:indicatorColor="@color/blue_github" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

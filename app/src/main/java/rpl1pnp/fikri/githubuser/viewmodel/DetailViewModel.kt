@@ -24,6 +24,8 @@ class DetailViewModel : ViewModel() {
     val isLoading: LiveData<Boolean> = _isLoading
     private val _codeError = MutableLiveData<String?>()
     val codeError: LiveData<String?> = _codeError
+    private val mutableSelectedItem = MutableLiveData<String?>()
+    val selectedItem: LiveData<String?> get() = mutableSelectedItem
 
     companion object {
         private const val TAG = "DetailViewModel"
@@ -64,6 +66,7 @@ class DetailViewModel : ViewModel() {
                 call: Call<FollowersResponse>,
                 response: Response<FollowersResponse>
             ) {
+                _isLoading.value = false
                 try {
                     _responseFollowers.value = response.body()
                 } catch (e: Exception) {
@@ -87,6 +90,7 @@ class DetailViewModel : ViewModel() {
                 response: Response<FollowersResponse>
             ) {
                 try {
+                    _isLoading.value = false
                     _responseFollowing.value = response.body()
                 } catch (e: Exception) {
                     _codeError.value = response.code().toString()
@@ -99,4 +103,9 @@ class DetailViewModel : ViewModel() {
             }
         })
     }
+
+    fun selectItem(item: String?) {
+        mutableSelectedItem.value = item
+    }
+
 }
