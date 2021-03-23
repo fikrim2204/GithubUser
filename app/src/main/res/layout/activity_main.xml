@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_github_background"
     tools:context=".view.activity.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -17,11 +16,12 @@
         app:liftOnScroll="true">
 
         <androidx.appcompat.widget.Toolbar
+            style="@style/MyActionBar"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="@string/app_name"
-            app:titleTextColor="@color/blue_github" />
+            app:titleTextColor="?attr/colorAccent" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -62,9 +62,17 @@
         android:layout_height="wrap_content"
         android:indeterminate="true"
         android:visibility="gone"
+        android:background="@android:color/transparent"
         app:indicatorColor="@color/blue_github"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_bar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

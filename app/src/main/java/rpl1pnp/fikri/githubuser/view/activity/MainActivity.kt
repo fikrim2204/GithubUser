@@ -7,26 +7,32 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import rpl1pnp.fikri.githubuser.R
 import rpl1pnp.fikri.githubuser.adapter.MainAdapter
 import rpl1pnp.fikri.githubuser.databinding.ActivityMainBinding
 import rpl1pnp.fikri.githubuser.model.UserSingleResponse
+import rpl1pnp.fikri.githubuser.utils.Prefs
 import rpl1pnp.fikri.githubuser.utils.loading
+import rpl1pnp.fikri.githubuser.view.fragment.SettingFragment
 import rpl1pnp.fikri.githubuser.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: MainAdapter
+    private lateinit var prefs: Prefs
     private val viewModel: MainViewModel by viewModels()
     private var userSingleResponses: List<UserSingleResponse> = mutableListOf()
     var login: String? = null
+    var darkMode: Boolean? = null
 
     companion object {
         const val EMPTY_QUERY = "empty_query"
@@ -36,14 +42,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        initTheme()
         binding.ivSearch.visibility = View.VISIBLE
-
         setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {
             title = "Github User"
         }
         recyclerView()
         viewModelObserve()
+    }
+
+    private fun initTheme() {
+        prefs = Prefs(this)
+        prefs.darkModePref
+        darkMode = prefs.darkModePref
+        if (darkMode == true) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
     }
 
     private fun recyclerView() {
@@ -145,5 +162,17 @@ class MainActivity : AppCompatActivity() {
         val inputMethodManager =
             getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.setting -> {
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.fragment_container, SettingFragment()).addToBackStack("SettingFragment")
+                    .commitAllowingStateLoss()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

@@ -4,12 +4,14 @@
     <item
         android:id="@+id/search"
         android:icon="@drawable/ic_baseline_search_24_black"
+        android:iconTint="?attr/colorOnPrimary"
         android:title="@string/search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="collapseActionView|ifRoom" />
     <item
         android:id="@+id/setting"
         android:icon="@drawable/ic_baseline_more_vert_24"
+        android:iconTint="?attr/colorOnPrimary"
         android:title="@string/setting"
-        app:showAsAction="never" />
+        app:showAsAction="collapseActionView" />
 </menu>
