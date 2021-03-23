@@ -22,10 +22,6 @@ class MainViewModel : ViewModel() {
     private val _isFailed = MutableLiveData<String?>()
     val failedResponse: LiveData<String?> = _isFailed
 
-    companion object {
-        private const val TAG = "MainViewModel"
-    }
-
     fun getUser(query: String?) {
         _isLoading.value = true
         val client = ApiRepo.getApiService().getUser(Constant.AUTHORIZATION, query)

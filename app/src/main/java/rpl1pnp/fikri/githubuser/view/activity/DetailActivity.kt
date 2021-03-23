@@ -1,7 +1,6 @@
 package rpl1pnp.fikri.githubuser.view.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
@@ -34,18 +33,20 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        checkSavedInstance(savedInstanceState)
+        setSupportActionBar(binding.toolbar)
+        initBackButton()
+        viewPager()
+        viewModelObserve()
+    }
+
+    private fun checkSavedInstance(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
             login = intent.getStringExtra("LOGIN")
             viewModel.getUserDetail(login)
         } else {
             login = savedInstanceState.getString(LOGIN_KEY)
         }
-
-        Log.d("DetailActivity", "Oncreate: $login")
-        setSupportActionBar(binding.toolbar)
-        initBackButton()
-        viewPager()
-        viewModelObserve()
     }
 
     private fun initBackButton() {
@@ -105,13 +106,11 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putString(LOGIN_KEY, userDetail?.login)
-        Log.d("DetailActivity", "OnSAVE: ${userDetail?.login}")
         super.onSaveInstanceState(outState)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         login = savedInstanceState.getString(LOGIN_KEY)
-        Log.d("DetailActivity", "OnRestored: $login")
         super.onRestoreInstanceState(savedInstanceState)
     }
 }

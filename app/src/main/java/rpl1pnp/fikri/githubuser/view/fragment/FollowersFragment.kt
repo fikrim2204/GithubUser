@@ -1,7 +1,6 @@
 package rpl1pnp.fikri.githubuser.view.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +31,6 @@ class FollowersFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModelObserve()
         initRecycler()
-        Log.d("TAG", "$login")
     }
 
     private fun initRecycler() {

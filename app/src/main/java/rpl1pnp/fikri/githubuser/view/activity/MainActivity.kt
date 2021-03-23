@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -30,19 +29,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.apply {
-            title = "Github User"
-        }
-
-        val fragmentManager = supportFragmentManager
-        val mainFragment = MainFragment()
-        val fragment = fragmentManager.findFragmentByTag(MainFragment::class.java.simpleName)
-        if (fragment !is MainFragment) {
-            supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_container, mainFragment, MainFragment::class.java.simpleName)
-                .commit()
-        }
+        createActionBar()
+        initFragment()
     }
 
     private fun initTheme() {
@@ -53,6 +41,24 @@ class MainActivity : AppCompatActivity() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+    }
+
+    private fun createActionBar() {
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.apply {
+            title = "Github User"
+        }
+    }
+
+    private fun initFragment() {
+        val fragmentManager = supportFragmentManager
+        val mainFragment = MainFragment()
+        val fragment = fragmentManager.findFragmentByTag(MainFragment::class.java.simpleName)
+        if (fragment !is MainFragment) {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragment_container, mainFragment, MainFragment::class.java.simpleName)
+                .commit()
         }
     }
 
@@ -75,12 +81,10 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextChange(query: String?): Boolean {
                 return if (query?.length == null) {
                     searchView.setQuery(MainFragment.EMPTY_QUERY, true)
-                    Log.d("TAG", "${viewModel.listResponse.value}")
                     false
                 } else {
                     if (query.length >= 3) {
                         viewModel.getUser(query)
-                        Log.d("TAG", "${viewModel.getUser(query)}")
                         true
                     } else false
                 }
