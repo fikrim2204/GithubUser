@@ -29,7 +29,7 @@ class FollowingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        viewModelObserve()
+        viewModelObserve()
         recyclerView()
     }
 

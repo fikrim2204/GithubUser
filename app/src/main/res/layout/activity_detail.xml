@@ -193,6 +193,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
+            app:tabMaxWidth="0dp"
+            app:tabGravity="fill"
             app:tabIndicatorColor="?attr/colorAccent"
             app:tabTextColor="?attr/colorOnPrimary" />
     </com.google.android.material.appbar.AppBarLayout>

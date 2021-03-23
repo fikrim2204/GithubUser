@@ -1,7 +1,6 @@
 package rpl1pnp.fikri.githubuser.view.activity
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
@@ -35,9 +34,12 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        login = intent.getStringExtra("LOGIN")
-        viewModel.getUserDetail(login)
-        login = savedInstanceState?.getString(LOGIN_KEY)
+        if (savedInstanceState == null) {
+            login = intent.getStringExtra("LOGIN")
+            viewModel.getUserDetail(login)
+        } else {
+            login = savedInstanceState.getString(LOGIN_KEY)
+        }
 
         Log.d("DetailActivity", "Oncreate: $login")
         setSupportActionBar(binding.toolbar)
@@ -101,10 +103,10 @@ class DetailActivity : AppCompatActivity() {
         return super.onSupportNavigateUp()
     }
 
-    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-        outState.putString(LOGIN_KEY, login)
-        Log.d("DetailActivity", "OnSAVE: $login")
-        super.onSaveInstanceState(outState, outPersistentState)
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString(LOGIN_KEY, userDetail?.login)
+        Log.d("DetailActivity", "OnSAVE: ${userDetail?.login}")
+        super.onSaveInstanceState(outState)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {

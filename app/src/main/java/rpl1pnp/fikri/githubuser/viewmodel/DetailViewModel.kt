@@ -1,5 +1,6 @@
 package rpl1pnp.fikri.githubuser.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -33,8 +34,10 @@ class DetailViewModel : ViewModel() {
                 response: Response<UserSingleResponse>
             ) {
                 _isLoading.value = false
+                _responseDetail.value = null
                 if (response.isSuccessful) {
                     _responseDetail.value = response.body()
+                    Log.d("DetailViewModel", "getUser running")
                 }
             }
 
@@ -54,8 +57,10 @@ class DetailViewModel : ViewModel() {
                 response: Response<FollowersResponse>
             ) {
                 _isLoading.value = false
+                _responseFollowers.value = null
                 if (response.isSuccessful) {
                     _responseFollowers.value = response.body()
+                    Log.d("DetailViewModel", "getFollowers $login running")
                 }
             }
 
@@ -74,8 +79,10 @@ class DetailViewModel : ViewModel() {
                 response: Response<FollowersResponse>
             ) {
                 _isLoading.value = false
+                _responseFollowing.value = null
                 if (response.isSuccessful) {
                     _responseFollowing.value = response.body()
+                    Log.d("DetailViewModel", "getFollowing $login running")
                 }
             }
 
