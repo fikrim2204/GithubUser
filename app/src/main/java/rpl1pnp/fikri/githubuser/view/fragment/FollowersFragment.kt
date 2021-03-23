@@ -30,7 +30,7 @@ class FollowersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModelObserve()
+//        viewModelObserve()
         initRecycler()
         Log.d("TAG", "$login")
     }
@@ -38,8 +38,8 @@ class FollowersFragment : Fragment() {
     private fun initRecycler() {
         binding.rvFollowers.layoutManager = LinearLayoutManager(activity)
         adapterFollow = FollowAdapter {
-            val loginFollow = it.login
-            viewModel.getUserDetail(loginFollow)
+            val loginFollowers = it.login
+            viewModel.getUserDetail(loginFollowers)
         }
         adapterFollow.notifyDataSetChanged()
         binding.rvFollowers.adapter = adapterFollow

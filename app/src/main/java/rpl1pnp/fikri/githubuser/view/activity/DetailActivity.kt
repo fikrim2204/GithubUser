@@ -1,6 +1,8 @@
 package rpl1pnp.fikri.githubuser.view.activity
 
 import android.os.Bundle
+import android.os.PersistableBundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
@@ -18,13 +20,14 @@ import rpl1pnp.fikri.githubuser.viewmodel.DetailViewModel
 
 class DetailActivity : AppCompatActivity() {
     private val viewModel: DetailViewModel by viewModels()
+    private lateinit var binding: ActivityDetailBinding
     private var login: String? = null
     private var userDetail: UserSingleResponse? = null
-    private lateinit var binding: ActivityDetailBinding
 
     companion object {
         @StringRes
         private val TAB_TITLES = intArrayOf(R.string.tab_followers, R.string.tab_following)
+        private const val LOGIN_KEY = "login_key"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +37,9 @@ class DetailActivity : AppCompatActivity() {
 
         login = intent.getStringExtra("LOGIN")
         viewModel.getUserDetail(login)
+        login = savedInstanceState?.getString(LOGIN_KEY)
+
+        Log.d("DetailActivity", "Oncreate: $login")
         setSupportActionBar(binding.toolbar)
         initBackButton()
         viewPager()
@@ -85,7 +91,6 @@ class DetailActivity : AppCompatActivity() {
                 binding.tvLocation.text = this.userDetail?.location
             }
         })
-
         viewModel.isLoading.observe(this, {
             binding.loading.visibility = loading(it)
         })
@@ -94,5 +99,17 @@ class DetailActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return super.onSupportNavigateUp()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        outState.putString(LOGIN_KEY, login)
+        Log.d("DetailActivity", "OnSAVE: $login")
+        super.onSaveInstanceState(outState, outPersistentState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        login = savedInstanceState.getString(LOGIN_KEY)
+        Log.d("DetailActivity", "OnRestored: $login")
+        super.onRestoreInstanceState(savedInstanceState)
     }
 }
