@@ -33,10 +33,33 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         login = intent.getStringExtra("LOGIN")
-        setSupportActionBar(binding.toolbar)
-        viewPager()
-
         viewModel.getUserDetail(login)
+        setSupportActionBar(binding.toolbar)
+        initBackButton()
+        viewPager()
+        viewModelObserve()
+    }
+
+    private fun initBackButton() {
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+        }
+    }
+
+    private fun viewPager() {
+        val sectionPageAdapter = login?.let { SectionPageAdapter(this) }
+        val viewPager: ViewPager2 = binding.viewPager
+        viewPager.adapter = sectionPageAdapter
+        val tabs: TabLayout = binding.tabLayout
+        TabLayoutMediator(tabs, viewPager) { tab, position ->
+            tab.text = resources.getString(TAB_TITLES[position])
+        }.attach()
+
+        binding.appBar.elevation = 0f
+    }
+
+    private fun viewModelObserve() {
         viewModel.listResponseDetail.observe(this, { item ->
             userDetail = item
             supportActionBar?.apply {
@@ -68,15 +91,8 @@ class DetailActivity : AppCompatActivity() {
         })
     }
 
-    private fun viewPager() {
-        val sectionPageAdapter = login?.let { SectionPageAdapter(this) }
-        val viewPager: ViewPager2 = binding.viewPager
-        viewPager.adapter = sectionPageAdapter
-        val tabs: TabLayout = binding.tabLayout
-        TabLayoutMediator(tabs, viewPager) { tab, position ->
-            tab.text = resources.getString(TAB_TITLES[position])
-        }.attach()
-
-        binding.appBar.elevation = 0f
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
 }

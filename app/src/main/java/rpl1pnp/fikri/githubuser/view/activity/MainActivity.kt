@@ -46,6 +46,17 @@ class MainActivity : AppCompatActivity() {
         viewModelObserve()
     }
 
+    private fun recyclerView() {
+        binding.rvUserGithub.layoutManager = LinearLayoutManager(this)
+        adapter = MainAdapter {
+            login = it.login
+            val intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra("LOGIN", login)
+            startActivity(intent)
+        }
+        binding.rvUserGithub.adapter = adapter
+    }
+
     private fun viewModelObserve() {
         viewModel.listResponse.observe(this, { item ->
             notFound(item)
@@ -72,17 +83,6 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun recyclerView() {
-        binding.rvUserGithub.layoutManager = LinearLayoutManager(this)
-        adapter = MainAdapter {
-            login = it.login
-            val intent = Intent(this, DetailActivity::class.java)
-            intent.putExtra("LOGIN", login)
-            startActivity(intent)
-        }
-        binding.rvUserGithub.adapter = adapter
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.top_app_bar_main, menu)
@@ -103,9 +103,10 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextChange(query: String?): Boolean {
                 return if (query?.length == null) {
                     searchView.setQuery(EMPTY_QUERY, true)
+                    Log.d("TAG", "${viewModel.listResponse.value}")
                     false
                 } else {
-                    if (query.length > 3) {
+                    if (query.length >= 3) {
                         viewModel.getUser(query)
                         Log.d("TAG", "${viewModel.getUser(query)}")
                         true

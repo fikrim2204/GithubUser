@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 data class UserResponse(
     val incomplete_results: Boolean? = null,
-    val items: List<UserSingleResponse>? = null,
+    val items: MutableList<UserSingleResponse>? = null,
     val total_count: Int? = null
 )
 
