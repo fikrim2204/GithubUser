@@ -1,6 +1,5 @@
 package rpl1pnp.fikri.githubuser.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -37,19 +36,14 @@ class MainViewModel : ViewModel() {
             ) {
                 _isLoading.value = false
                 _response.value = null
-                try {
+                if (response.isSuccessful) {
                     _response.value = response.body()?.items
-                    Log.d(TAG, response.body().toString())
-                } catch (e: Exception) {
-                    _responseFailure.value = response.errorBody()
-                    Log.e(TAG, "Error : ${e.message}")
                 }
             }
 
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                 _isLoading.value = false
                 _isFailed.value = t.message
-                Log.e(TAG, "onFailure Get User: ${t.message}")
             }
 
         })

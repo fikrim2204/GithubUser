@@ -22,13 +22,13 @@ interface ApiService {
         @Path("login") login: String?
     ): Call<UserSingleResponse>
 
-    @GET(Constant.USER+"/{login}"+Constant.FOLLOWERS)
+    @GET(Constant.USER + "/{login}" + Constant.FOLLOWERS)
     fun getFollowers(
         @Header("Authorization") token: String?,
         @Path("login") login: String?
     ): Call<FollowersResponse>
 
-    @GET(Constant.USER+"/{login}"+Constant.FOLLOWING)
+    @GET(Constant.USER + "/{login}" + Constant.FOLLOWING)
     fun getFollowing(
         @Header("Authorization") token: String?,
         @Path("login") login: String?

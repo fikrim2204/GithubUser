@@ -14,6 +14,7 @@ class MainAdapter(
 ) :
     RecyclerView.Adapter<ViewHolder>() {
     var userSingleResponse: List<UserSingleResponse> = mutableListOf()
+
     class ViewHolder(private val binding: ItemMainBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(users: UserSingleResponse, listener: (UserSingleResponse) -> Unit) {
             binding.civProfile.load(users.avatar_url)

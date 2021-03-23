@@ -10,8 +10,8 @@ import rpl1pnp.fikri.githubuser.databinding.FragmentSettingBinding
 import rpl1pnp.fikri.githubuser.utils.Prefs
 
 class SettingFragment : Fragment() {
-    private var _binding: FragmentSettingBinding? = null
     private val binding get() = _binding!!
+    private var _binding: FragmentSettingBinding? = null
     private lateinit var prefs: Prefs
 
     override fun onCreateView(

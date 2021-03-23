@@ -17,10 +17,10 @@ import rpl1pnp.fikri.githubuser.view.sectionpage.SectionPageAdapter
 import rpl1pnp.fikri.githubuser.viewmodel.DetailViewModel
 
 class DetailActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityDetailBinding
     private val viewModel: DetailViewModel by viewModels()
     private var login: String? = null
     private var userDetail: UserSingleResponse? = null
+    private lateinit var binding: ActivityDetailBinding
 
     companion object {
         @StringRes

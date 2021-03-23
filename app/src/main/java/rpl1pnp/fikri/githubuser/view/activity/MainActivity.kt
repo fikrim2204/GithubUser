@@ -19,10 +19,10 @@ import rpl1pnp.fikri.githubuser.view.fragment.MainFragment
 import rpl1pnp.fikri.githubuser.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
+    private val viewModel: MainViewModel by viewModels()
+    private var darkMode: Boolean? = null
     private lateinit var binding: ActivityMainBinding
     private lateinit var prefs: Prefs
-    private var darkMode: Boolean? = null
-    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         initTheme()

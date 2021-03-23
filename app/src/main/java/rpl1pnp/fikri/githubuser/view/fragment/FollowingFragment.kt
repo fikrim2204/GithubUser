@@ -1,6 +1,5 @@
 package rpl1pnp.fikri.githubuser.view.fragment
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,17 +13,11 @@ import rpl1pnp.fikri.githubuser.model.DataFollow
 import rpl1pnp.fikri.githubuser.viewmodel.DetailViewModel
 
 class FollowingFragment : Fragment() {
+    private val viewModel: DetailViewModel by activityViewModels()
+    private var following: ArrayList<DataFollow> = arrayListOf()
+    private var login: String? = null
     private lateinit var binding: FragmentFollowingBinding
     private lateinit var adapter: FollowAdapter
-    private var following: ArrayList<DataFollow> = arrayListOf()
-    private val viewModel: DetailViewModel by activityViewModels()
-    private var login: String? = null
-    lateinit var sharedPref: SharedPreferences
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.getFollowing(login)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

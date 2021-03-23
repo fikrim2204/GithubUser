@@ -2,6 +2,7 @@ package rpl1pnp.fikri.githubuser.view.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -19,12 +20,12 @@ import rpl1pnp.fikri.githubuser.view.activity.DetailActivity
 import rpl1pnp.fikri.githubuser.viewmodel.MainViewModel
 
 class MainFragment : Fragment() {
-    private var _binding: FragmentMainBinding? =null
-    private val binding get() = _binding!!
-    private lateinit var adapter: MainAdapter
     private val viewModel: MainViewModel by activityViewModels()
+    private val binding get() = _binding!!
+    private var _binding: FragmentMainBinding? = null
     private var userSingleResponses: List<UserSingleResponse> = mutableListOf()
-    var login: String? = null
+    private var login: String? = null
+    private lateinit var adapter: MainAdapter
 
     companion object {
         const val EMPTY_QUERY = "empty_query"
@@ -113,6 +114,10 @@ class MainFragment : Fragment() {
                     ?.addToBackStack("SettingFragment")
                     ?.commit()
                 return true
+            }
+            R.id.change_language -> {
+                val intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+                startActivity(intent)
             }
         }
         return super.onOptionsItemSelected(item)
