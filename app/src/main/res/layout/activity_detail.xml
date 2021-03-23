@@ -16,12 +16,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|snap"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
             app:titleEnabled="false">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_collapseMode="parallax"
                 android:layout_marginTop="?attr/actionBarSize">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -166,8 +168,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:text="@string/repository"
+                    android:layout_marginBottom="8dp"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/tv_number_repository"
                     app:layout_constraintTop_toTopOf="@id/tv_number_repository" />
 
@@ -181,16 +185,16 @@
                 app:layout_collapseMode="pin"
                 app:title="@string/app_name"
                 app:titleTextColor="?attr/colorAccent" />
+
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:background="?attr/colorPrimary"
-            app:tabTextColor="?attr/colorOnPrimary"
-            app:tabIndicatorColor="?attr/colorAccent"/>
+            app:tabIndicatorColor="?attr/colorAccent"
+            app:tabTextColor="?attr/colorOnPrimary" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -211,7 +215,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:indeterminate="true"
-        android:background="@android:color/transparent"
         android:visibility="gone"
-        app:indicatorColor="@color/blue_500" />
+        app:indicatorColor="?attr/colorAccent" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

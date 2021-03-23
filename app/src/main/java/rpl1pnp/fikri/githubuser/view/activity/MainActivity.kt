@@ -3,53 +3,46 @@ package rpl1pnp.fikri.githubuser.view.activity
 import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
-import androidx.recyclerview.widget.LinearLayoutManager
 import rpl1pnp.fikri.githubuser.R
-import rpl1pnp.fikri.githubuser.adapter.MainAdapter
 import rpl1pnp.fikri.githubuser.databinding.ActivityMainBinding
-import rpl1pnp.fikri.githubuser.model.UserSingleResponse
 import rpl1pnp.fikri.githubuser.utils.Prefs
-import rpl1pnp.fikri.githubuser.utils.loading
-import rpl1pnp.fikri.githubuser.view.fragment.SettingFragment
+import rpl1pnp.fikri.githubuser.view.fragment.MainFragment
 import rpl1pnp.fikri.githubuser.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var adapter: MainAdapter
     private lateinit var prefs: Prefs
+    private var darkMode: Boolean? = null
     private val viewModel: MainViewModel by viewModels()
-    private var userSingleResponses: List<UserSingleResponse> = mutableListOf()
-    var login: String? = null
-    var darkMode: Boolean? = null
-
-    companion object {
-        const val EMPTY_QUERY = "empty_query"
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        initTheme()
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initTheme()
-        binding.ivSearch.visibility = View.VISIBLE
+
         setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {
             title = "Github User"
         }
-        recyclerView()
-        viewModelObserve()
+
+        val fragmentManager = supportFragmentManager
+        val mainFragment = MainFragment()
+        val fragment = fragmentManager.findFragmentByTag(MainFragment::class.java.simpleName)
+        if (fragment !is MainFragment) {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragment_container, mainFragment, MainFragment::class.java.simpleName)
+                .commit()
+        }
     }
 
     private fun initTheme() {
@@ -63,47 +56,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun recyclerView() {
-        binding.rvUserGithub.layoutManager = LinearLayoutManager(this)
-        adapter = MainAdapter {
-            login = it.login
-            val intent = Intent(this, DetailActivity::class.java)
-            intent.putExtra("LOGIN", login)
-            startActivity(intent)
-        }
-        binding.rvUserGithub.adapter = adapter
-    }
-
-    private fun viewModelObserve() {
-        viewModel.listResponse.observe(this, { item ->
-            notFound(item)
-            if (item != null) {
-                userSingleResponses = item
-                adapter.userSingleResponse = userSingleResponses
-                adapter.notifyDataSetChanged()
-            }
-        })
-
-        viewModel.listResponseFailure.observe(this, { item ->
-            if (item != null) {
-                Toast.makeText(this, item.toString(), Toast.LENGTH_SHORT).show()
-            }
-        })
-
-        viewModel.isLoading.observe(this, {
-            searchImage(it)
-            binding.loading.visibility = loading(it)
-        })
-
-        viewModel.failedResponse.observe(this, {
-            Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
-        })
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.top_app_bar_main, menu)
-
         val searchManager =
             getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView = menu?.findItem(R.id.search)?.actionView as SearchView
@@ -119,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(query: String?): Boolean {
                 return if (query?.length == null) {
-                    searchView.setQuery(EMPTY_QUERY, true)
+                    searchView.setQuery(MainFragment.EMPTY_QUERY, true)
                     Log.d("TAG", "${viewModel.listResponse.value}")
                     false
                 } else {
@@ -132,26 +87,11 @@ class MainActivity : AppCompatActivity() {
             }
         })
         searchView.setOnCloseListener {
-            searchView.setQuery(EMPTY_QUERY, true)
+            searchView.setQuery(MainFragment.EMPTY_QUERY, true)
             false
         }
-        return super.onCreateOptionsMenu(menu)
-    }
 
-    private fun searchImage(boolean: Boolean) {
-        if (boolean) {
-            binding.ivSearch.visibility = View.GONE
-        }
-    }
-
-    private fun notFound(item: List<UserSingleResponse>?) {
-        if (item?.size != 0) {
-            binding.ivSearch.visibility = View.GONE
-            binding.tvNotFound.visibility = View.GONE
-        } else {
-            binding.ivSearch.visibility = View.VISIBLE
-            binding.tvNotFound.visibility = View.VISIBLE
-        }
+        return true
     }
 
     fun Activity.hideKeyboard() {
@@ -162,17 +102,5 @@ class MainActivity : AppCompatActivity() {
         val inputMethodManager =
             getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.setting -> {
-                supportFragmentManager.beginTransaction()
-                    .add(R.id.fragment_container, SettingFragment()).addToBackStack("SettingFragment")
-                    .commitAllowingStateLoss()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 }

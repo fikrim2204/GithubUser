@@ -10,7 +10,8 @@ import rpl1pnp.fikri.githubuser.databinding.FragmentSettingBinding
 import rpl1pnp.fikri.githubuser.utils.Prefs
 
 class SettingFragment : Fragment() {
-    private lateinit var binding: FragmentSettingBinding
+    private var _binding: FragmentSettingBinding? = null
+    private val binding get() = _binding!!
     private lateinit var prefs: Prefs
 
     override fun onCreateView(
@@ -18,7 +19,7 @@ class SettingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentSettingBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentSettingBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -39,5 +40,10 @@ class SettingFragment : Fragment() {
                 prefs.darkModePref = false
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
