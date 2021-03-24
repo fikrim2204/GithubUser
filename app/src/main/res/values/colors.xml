@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black_splash">#0d1117</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFF</color>
     <color name="black_github_background">#06090e</color>
-    <color name="black_github_card">#0e1116</color>
-    <color name="black_github_appbar">#161b21</color>
-    <color name="grey_github">#5b626b</color>
     <color name="blue_github">#58a6ff</color>
-
     //Color Material
     <color name="grey_50">#FAFAFA</color>
     <color name="grey_300">#E0E0E0</color>
     <color name="grey_600">#757575</color>
     <color name="grey_800">#424242</color>
     <color name="grey_900">#212121</color>
-    <color name="blue_200">#90CAF9</color>
     <color name="blue_500">#2196F3</color>
     <color name="blue_700">#1976D2</color>
-    <color name="amber_200">#FFE082</color>
-    <color name="amber_900">#FF6F00</color>
 </resources>

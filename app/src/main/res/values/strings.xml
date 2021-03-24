@@ -1,11 +1,8 @@
 <resources>
     <string name="app_name">GithubUser</string>
-    <string name="image_follower">image follower</string>
-    <string name="image_following">image following</string>
     <string name="repository">Repository</string>
     <string name="following">Following</string>
     <string name="followers">Followers</string>
-    <string name="logo">logo</string>
     <string name="search">Search</string>
     <string name="search_hint">Insert keyword</string>
     <string name="search_image">Search Image</string>
