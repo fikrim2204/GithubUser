@@ -16,6 +16,7 @@
             style="@style/MyActionBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
             app:title="@string/app_name"
             app:titleTextColor="?attr/colorAccent" />
     </com.google.android.material.appbar.AppBarLayout>
