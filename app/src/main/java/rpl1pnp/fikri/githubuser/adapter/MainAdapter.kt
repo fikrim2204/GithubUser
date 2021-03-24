@@ -17,7 +17,7 @@ class MainAdapter(
     class ViewHolder(private val binding: ItemMainBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(users: UserSingleResponse, listener: (UserSingleResponse) -> Unit) {
             binding.civProfile.load(users.avatar_url)
-            binding.tvUsernameProfile.text = users.login
+            binding.tvUsernameProfiles.text = users.login
             itemView.setOnClickListener {
                 listener(users)
             }
@@ -26,7 +26,7 @@ class MainAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = ItemMainBinding.inflate(layoutInflater)
+        val binding = ItemMainBinding.inflate(layoutInflater, parent, false)
         return ViewHolder(binding)
     }
 

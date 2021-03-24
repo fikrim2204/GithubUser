@@ -54,7 +54,8 @@ class MainFragment : Fragment() {
     }
 
     private fun recyclerView() {
-        binding.rvUserGithub.layoutManager = LinearLayoutManager(requireActivity())
+        binding.rvUserGithub.setHasFixedSize(true)
+        binding.rvUserGithub.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         adapter = MainAdapter {
             login = it.login
             val intent = Intent(activity, DetailActivity::class.java)
@@ -62,7 +63,6 @@ class MainFragment : Fragment() {
             startActivity(intent)
         }
         binding.rvUserGithub.adapter = adapter
-        binding.rvUserGithub.setHasFixedSize(true)
     }
 
     private fun viewModelObserve() {

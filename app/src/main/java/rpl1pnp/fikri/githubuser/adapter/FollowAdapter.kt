@@ -16,7 +16,7 @@ class FollowAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(follow: DataFollow, listener: (DataFollow) -> Unit) {
             binding.civProfile.load(follow.avatar_url)
-            binding.tvUsernameProfile.text = follow.login
+            binding.tvUsernameProfiles.text = follow.login
             itemView.setOnClickListener {
                 listener(follow)
             }
@@ -25,7 +25,7 @@ class FollowAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = ItemMainBinding.inflate(layoutInflater)
+        val binding = ItemMainBinding.inflate(layoutInflater, parent, false)
         return ViewHolder(binding)
     }
 

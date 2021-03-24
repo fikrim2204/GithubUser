@@ -39,7 +39,7 @@ class FollowersFragment : Fragment() {
     }
 
     private fun initRecycler() {
-        binding.rvFollowers.layoutManager = LinearLayoutManager(activity)
+        binding.rvFollowers.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         adapterFollow = FollowAdapter {
             val loginFollowers = it.login
             viewModel.getUserDetail(loginFollowers)
