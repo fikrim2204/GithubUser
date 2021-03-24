@@ -155,11 +155,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawablePadding="4dp"
+                    android:layout_marginTop="4dp"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:drawableStartCompat="@drawable/ic_baseline_book_16"
-                    app:layout_constraintStart_toStartOf="@id/tv_company"
+                    app:layout_constraintStart_toStartOf="@id/tv_number_follower"
                     app:layout_constraintTop_toBottomOf="@id/tv_company"
                     tools:text="15" />
 
@@ -167,6 +168,7 @@
                     android:id="@+id/tv_repository"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
                     android:layout_marginStart="4dp"
                     android:layout_marginBottom="8dp"
                     android:text="@string/repository"
