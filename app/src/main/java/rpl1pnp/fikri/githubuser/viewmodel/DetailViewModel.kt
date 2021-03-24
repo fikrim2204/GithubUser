@@ -32,10 +32,8 @@ class DetailViewModel : ViewModel() {
                 call: Call<UserSingleResponse>,
                 response: Response<UserSingleResponse>
             ) {
-                _responseDetail.value = null
                 if (response.isSuccessful) {
                     _responseDetail.value = response.body()
-                    _isLoading.value = false
                 }
             }
 
@@ -47,18 +45,16 @@ class DetailViewModel : ViewModel() {
     }
 
     fun getFollowers(login: String?) {
-        _isLoading.value = true
         val client = ApiRepo.getApiService().getFollowers(Constant.AUTHORIZATION, login)
         client.enqueue(object : Callback<FollowersResponse> {
             override fun onResponse(
                 call: Call<FollowersResponse>,
                 response: Response<FollowersResponse>
             ) {
-                _responseFollowers.value = null
                 if (response.isSuccessful) {
                     _responseFollowers.value = response.body()
-                    _isLoading.value = false
                 }
+                _isLoading.value = false
             }
 
             override fun onFailure(call: Call<FollowersResponse>, t: Throwable) {
@@ -75,11 +71,10 @@ class DetailViewModel : ViewModel() {
                 call: Call<FollowersResponse>,
                 response: Response<FollowersResponse>
             ) {
-                _responseFollowing.value = null
                 if (response.isSuccessful) {
                     _responseFollowing.value = response.body()
-                    _isLoading.value = false
                 }
+                _isLoading.value = false
             }
 
             override fun onFailure(call: Call<FollowersResponse>, t: Throwable) {

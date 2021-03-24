@@ -62,6 +62,7 @@ class MainFragment : Fragment() {
             startActivity(intent)
         }
         binding.rvUserGithub.adapter = adapter
+        binding.rvUserGithub.setHasFixedSize(true)
     }
 
     private fun viewModelObserve() {

@@ -30,11 +30,11 @@ class MainViewModel : ViewModel() {
                 call: Call<UserResponse>,
                 response: Response<UserResponse>
             ) {
-                _isLoading.value = false
                 _response.value = null
                 if (response.isSuccessful) {
                     _response.value = response.body()?.items
                 }
+                _isLoading.value = false
             }
 
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
