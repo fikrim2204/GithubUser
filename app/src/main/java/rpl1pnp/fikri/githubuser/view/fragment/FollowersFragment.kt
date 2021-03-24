@@ -1,11 +1,9 @@
 package rpl1pnp.fikri.githubuser.view.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -69,24 +67,11 @@ class FollowersFragment : Fragment() {
             login = item
             if (savedInstanceState == null) {
                 viewModel.getFollowers(login)
-                Log.d("SAVEDLOGIN", "SavedInstance null")
             } else {
                 val savedLogin = savedInstanceState.getString(LOGIN)
                 if (savedLogin != login) {
                     viewModel.getFollowers(login)
-                    Toast.makeText(
-                        requireActivity(),
-                        "SavedInstance not null\nLogin : $login & SavedLogin : $savedLogin tidak sama",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    Toast.makeText(
-                        requireActivity(),
-                        "SavedInstance not null\nLogin : $login & SavedLogin : $savedLogin sama",
-                        Toast.LENGTH_SHORT
-                    ).show()
                 }
-                Log.d("SAVEDLOGIN", "Login : $login, SavedLogin : $savedLogin")
             }
         })
     }

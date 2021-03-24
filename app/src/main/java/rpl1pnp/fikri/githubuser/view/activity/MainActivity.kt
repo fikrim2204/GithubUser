@@ -23,6 +23,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var prefs: Prefs
 
+    companion object{
+        private const val EMPTY_QUERY = "empty_query"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         initTheme()
         super.onCreate(savedInstanceState)
@@ -80,7 +84,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(query: String?): Boolean {
                 return if (query?.length == null) {
-                    searchView.setQuery(MainFragment.EMPTY_QUERY, true)
+                    searchView.setQuery(EMPTY_QUERY, true)
                     false
                 } else {
                     if (query.length >= 3) {
@@ -91,7 +95,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
         searchView.setOnCloseListener {
-            searchView.setQuery(MainFragment.EMPTY_QUERY, true)
+            searchView.setQuery(EMPTY_QUERY, true)
             false
         }
 

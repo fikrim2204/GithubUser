@@ -28,7 +28,7 @@ class MainFragment : Fragment() {
     private lateinit var adapter: MainAdapter
 
     companion object {
-        const val EMPTY_QUERY = "empty_query"
+        private const val LOGIN = "login"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +58,7 @@ class MainFragment : Fragment() {
         adapter = MainAdapter {
             login = it.login
             val intent = Intent(activity, DetailActivity::class.java)
-            intent.putExtra("LOGIN", login)
+            intent.putExtra(LOGIN, login)
             startActivity(intent)
         }
         binding.rvUserGithub.adapter = adapter
@@ -111,7 +111,7 @@ class MainFragment : Fragment() {
             R.id.setting -> {
                 activity?.supportFragmentManager?.beginTransaction()
                     ?.replace(R.id.fragment_container, SettingFragment())
-                    ?.addToBackStack("SettingFragment")
+                    ?.addToBackStack(SettingFragment::class.java.simpleName)
                     ?.commit()
                 return true
             }

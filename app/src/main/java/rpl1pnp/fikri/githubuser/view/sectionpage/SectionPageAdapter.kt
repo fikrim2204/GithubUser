@@ -13,12 +13,8 @@ class SectionPageAdapter(activity: AppCompatActivity) :
     override fun createFragment(position: Int): Fragment {
         var fragment: Fragment? = null
         when (position) {
-            0 -> {
-                fragment = FollowersFragment()
-            }
-            1 -> {
-                fragment = FollowingFragment()
-            }
+            0 -> fragment = FollowersFragment()
+            1 -> fragment = FollowingFragment()
         }
         return fragment as Fragment
     }

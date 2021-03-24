@@ -1,6 +1,5 @@
 package rpl1pnp.fikri.githubuser.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +17,6 @@ class MainAdapter(
     class ViewHolder(private val binding: ItemMainBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(users: UserSingleResponse, listener: (UserSingleResponse) -> Unit) {
             binding.civProfile.load(users.avatar_url)
-            Log.i("MainAdapter", users.login.toString())
             binding.tvUsernameProfile.text = users.login
             itemView.setOnClickListener {
                 listener(users)

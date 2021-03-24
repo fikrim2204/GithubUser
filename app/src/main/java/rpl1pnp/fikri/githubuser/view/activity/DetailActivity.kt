@@ -26,6 +26,7 @@ class DetailActivity : AppCompatActivity() {
         @StringRes
         private val TAB_TITLES = intArrayOf(R.string.followers, R.string.following)
         private const val LOGIN_KEY = "login_key"
+        private const val LOGIN = "login"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +45,7 @@ class DetailActivity : AppCompatActivity() {
         if (savedInstanceState != null) {
             login = savedInstanceState.getString(LOGIN_KEY)
         } else {
-            login = intent.getStringExtra("LOGIN")
+            login = intent.getStringExtra(LOGIN)
             viewModel.getUserDetail(login)
         }
     }

@@ -1,6 +1,5 @@
 package rpl1pnp.fikri.githubuser.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -49,7 +48,6 @@ class DetailViewModel : ViewModel() {
 
     fun getFollowers(login: String?) {
         _isLoading.value = true
-        Log.d("LOADINGFOLLOW", "LoadingFollowers Hidup")
         val client = ApiRepo.getApiService().getFollowers(Constant.AUTHORIZATION, login)
         client.enqueue(object : Callback<FollowersResponse> {
             override fun onResponse(
