@@ -41,11 +41,11 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun checkSavedInstance(savedInstanceState: Bundle?) {
-        if (savedInstanceState == null) {
+        if (savedInstanceState != null) {
+            login = savedInstanceState.getString(LOGIN_KEY)
+        } else {
             login = intent.getStringExtra("LOGIN")
             viewModel.getUserDetail(login)
-        } else {
-            login = savedInstanceState.getString(LOGIN_KEY)
         }
     }
 
@@ -105,12 +105,12 @@ class DetailActivity : AppCompatActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString(LOGIN_KEY, userDetail?.login)
         super.onSaveInstanceState(outState)
+        outState.putString(LOGIN_KEY, userDetail?.login)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        login = savedInstanceState.getString(LOGIN_KEY)
         super.onRestoreInstanceState(savedInstanceState)
+        login = savedInstanceState.getString(LOGIN_KEY)
     }
 }

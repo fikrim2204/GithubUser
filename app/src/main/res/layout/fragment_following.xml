@@ -6,9 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".view.fragment.FollowingFragment">
 
+    <TextView
+        android:id="@+id/tv_no_following"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="24sp"
+        android:visibility="gone"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="No following" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_following"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

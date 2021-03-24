@@ -15,4 +15,6 @@
     <string name="setting">Setting</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="change_language">Change language</string>
+    <string name="no_followers">does\'nt have any follower yet</string>
+    <string name="no_following">is\'nt following anybody</string>
 </resources>
