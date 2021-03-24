@@ -103,7 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="@string/follower"
+                    android:text="@string/followers"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="14sp"
                     app:layout_constraintStart_toEndOf="@id/tv_number_follower"
@@ -193,17 +193,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
-            app:tabMaxWidth="0dp"
             app:tabGravity="fill"
             app:tabIndicatorColor="?attr/colorAccent"
+            app:tabMaxWidth="0dp"
             app:tabTextColor="?attr/colorOnPrimary" />
     </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-            android:layout_height="match_parent" />
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/loading"

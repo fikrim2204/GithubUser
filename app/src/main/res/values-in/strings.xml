@@ -3,14 +3,12 @@
     <string name="app_name">GithubUser</string>
     <string name="image_follower">Gambar pengikut</string>
     <string name="image_following">Gambar mengikuti</string>
-    <string name="repository">Gudang</string>
+    <string name="repository">Penyimpanan</string>
     <string name="following">Mengikuti</string>
-    <string name="follower">Pengikut</string>
+    <string name="followers">Pengikut</string>
     <string name="logo">logo</string>
     <string name="search">Pencarian</string>
     <string name="search_hint">Masukkan kata</string>
-    <string name="tab_followers">Pengikut</string>
-    <string name="tab_following">Mengikuti</string>
     <string name="search_image">Gambar pencarian</string>
     <string name="user_not_found">User tidak ditemukan!</string>
     <string name="setting">Pengaturan</string>
