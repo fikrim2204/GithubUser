@@ -19,7 +19,6 @@ import rpl1pnp.fikri.githubuser.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModels()
-    private var darkMode: Boolean? = null
     private lateinit var binding: ActivityMainBinding
     private lateinit var prefs: Prefs
 
@@ -40,8 +39,8 @@ class MainActivity : AppCompatActivity() {
     private fun initTheme() {
         prefs = Prefs(this)
         prefs.darkModePref
-        darkMode = prefs.darkModePref
-        if (darkMode == true) {
+        val darkMode = prefs.darkModePref
+        if (darkMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)

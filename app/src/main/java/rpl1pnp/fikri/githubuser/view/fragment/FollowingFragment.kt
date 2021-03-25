@@ -35,7 +35,7 @@ class FollowingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModelObserve(savedInstanceState)
-        recyclerView()
+        initRecyclerView()
     }
 
     private fun viewModelObserve(savedInstanceState: Bundle?) {
@@ -66,7 +66,7 @@ class FollowingFragment : Fragment() {
         })
     }
 
-    private fun recyclerView() {
+    private fun initRecyclerView() {
         binding.rvFollowing.layoutManager = LinearLayoutManager(activity)
         adapter = FollowAdapter {
             val loginFollowing = it.login

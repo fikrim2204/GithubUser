@@ -76,11 +76,13 @@ class DetailActivity : AppCompatActivity() {
                 title = userDetail?.login
             }
             viewModel.selectItem(userDetail?.login)
-            binding.civProfile.load(this.userDetail?.avatar_url)
-            binding.tvNameProfile.text = this.userDetail?.name
-            binding.tvUsernameProfile.text = this.userDetail?.login
-            binding.tvNumberFollower.text = this.userDetail?.followers.toString()
-            binding.tvNumberFollowing.text = this.userDetail?.following.toString()
+            with(binding) {
+                civProfile.load(userDetail?.avatar_url)
+                tvNameProfile.text = userDetail?.name
+                tvUsernameProfile.text = userDetail?.login
+                tvNumberFollower.text = userDetail?.followers.toString()
+                tvNumberFollowing.text = userDetail?.following.toString()
+            }
             if (this.userDetail?.company == null) {
                 binding.tvCompany.visibility = View.GONE
             } else {
