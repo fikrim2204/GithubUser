@@ -3,6 +3,7 @@ package rpl1pnp.fikri.githubuser.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,6 +20,8 @@ class DetailViewModel : ViewModel() {
     val listResponseFollowers: LiveData<ArrayList<DataFollow>?> = _responseFollowers
     private val _responseFollowing = MutableLiveData<ArrayList<DataFollow>?>()
     val listResponseFollowing: LiveData<ArrayList<DataFollow>?> = _responseFollowing
+    private val _responseFailure = MutableLiveData<String>()
+    val listResponseFailure: LiveData<String> = _responseFailure
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
     private val mutableSelectedItem = MutableLiveData<String?>()
@@ -34,6 +37,10 @@ class DetailViewModel : ViewModel() {
             ) {
                 if (response.isSuccessful) {
                     _responseDetail.value = response.body()
+                } else {
+                    val errors = response.errorBody()!!.string()
+                    val jsonObject = JSONObject(errors)
+                    _responseFailure.value = jsonObject.getString("message")
                 }
             }
 
@@ -53,6 +60,10 @@ class DetailViewModel : ViewModel() {
             ) {
                 if (response.isSuccessful) {
                     _responseFollowers.value = response.body()
+                } else {
+                    val errors = response.errorBody()!!.string()
+                    val jsonObject = JSONObject(errors)
+                    _responseFailure.value = jsonObject.getString("message")
                 }
                 _isLoading.value = false
             }
@@ -73,6 +84,10 @@ class DetailViewModel : ViewModel() {
             ) {
                 if (response.isSuccessful) {
                     _responseFollowing.value = response.body()
+                } else {
+                    val errors = response.errorBody()!!.string()
+                    val jsonObject = JSONObject(errors)
+                    _responseFailure.value = jsonObject.getString("message")
                 }
                 _isLoading.value = false
             }

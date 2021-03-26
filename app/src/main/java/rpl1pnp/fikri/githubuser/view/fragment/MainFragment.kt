@@ -87,7 +87,7 @@ class MainFragment : Fragment() {
         })
 
         viewModel.failedResponse.observe(viewLifecycleOwner, {
-            Toast.makeText(activity, it.toString(), Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
         })
     }
 

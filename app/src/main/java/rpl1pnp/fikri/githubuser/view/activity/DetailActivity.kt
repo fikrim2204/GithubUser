@@ -2,6 +2,7 @@ package rpl1pnp.fikri.githubuser.view.activity
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -99,6 +100,9 @@ class DetailActivity : AppCompatActivity() {
         })
         viewModel.isLoading.observe(this, {
             binding.loading.visibility = loading(it)
+        })
+        viewModel.listResponseFailure.observe(this, { item ->
+            Toast.makeText(this, item, Toast.LENGTH_SHORT).show()
         })
     }
 

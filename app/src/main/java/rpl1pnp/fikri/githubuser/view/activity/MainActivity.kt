@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.commit
 import rpl1pnp.fikri.githubuser.R
 import rpl1pnp.fikri.githubuser.databinding.ActivityMainBinding
 import rpl1pnp.fikri.githubuser.utils.Prefs
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var prefs: Prefs
 
-    companion object{
+    companion object {
         private const val EMPTY_QUERY = "empty_query"
     }
 
@@ -59,9 +60,13 @@ class MainActivity : AppCompatActivity() {
         val mainFragment = MainFragment()
         val fragment = fragmentManager.findFragmentByTag(MainFragment::class.java.simpleName)
         if (fragment !is MainFragment) {
-            supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_container, mainFragment, MainFragment::class.java.simpleName)
-                .commit()
+            supportFragmentManager.commit {
+                add(
+                    R.id.fragment_container,
+                    mainFragment,
+                    MainFragment::class.java.simpleName
+                )
+            }
         }
     }
 
