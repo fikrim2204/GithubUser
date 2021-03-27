@@ -9,3 +9,11 @@ fun loading(loading: Boolean): Int {
         View.GONE
     }
 }
+
+fun recyclerViewState(loading: Boolean): Int {
+    return if (!loading) {
+        View.VISIBLE
+    } else {
+        View.GONE
+    }
+}

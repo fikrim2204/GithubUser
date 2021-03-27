@@ -88,7 +88,6 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(query: String?): Boolean {
                 return if (query?.length == null) {
-                    searchView.setQuery(EMPTY_QUERY, true)
                     false
                 } else {
                     if (query.length >= 3) {

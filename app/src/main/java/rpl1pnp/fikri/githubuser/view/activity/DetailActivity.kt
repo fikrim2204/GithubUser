@@ -3,9 +3,9 @@ package rpl1pnp.fikri.githubuser.view.activity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import coil.load
 import com.google.android.material.tabs.TabLayout
@@ -14,8 +14,7 @@ import rpl1pnp.fikri.githubuser.R
 import rpl1pnp.fikri.githubuser.databinding.ActivityDetailBinding
 import rpl1pnp.fikri.githubuser.model.UserSingleResponse
 import rpl1pnp.fikri.githubuser.repository.local.AppDatabase
-import rpl1pnp.fikri.githubuser.repository.local.DatabaseBuilder
-import rpl1pnp.fikri.githubuser.repository.local.DatabaseHelperImpl
+import rpl1pnp.fikri.githubuser.repository.local.UserFavoritesApplication
 import rpl1pnp.fikri.githubuser.repository.local.dao.UserFavoriteDao
 import rpl1pnp.fikri.githubuser.repository.local.entity.UserFavorite
 import rpl1pnp.fikri.githubuser.utils.ViewModelFactory
@@ -24,7 +23,9 @@ import rpl1pnp.fikri.githubuser.view.sectionpage.SectionPageAdapter
 import rpl1pnp.fikri.githubuser.viewmodel.DetailViewModel
 
 class DetailActivity : AppCompatActivity() {
-    private lateinit var viewModel: DetailViewModel
+    private val viewModel: DetailViewModel by viewModels {
+        ViewModelFactory((application as UserFavoritesApplication).repository)
+    }
     private lateinit var binding: ActivityDetailBinding
     private var db: AppDatabase? = null
     private var userFavoriteDao: UserFavoriteDao? = null
@@ -43,7 +44,7 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupViewModel()
+//        setupViewModel()
         checkSavedInstance(savedInstanceState)
         setSupportActionBar(binding.toolbar)
         initBackButton()
@@ -121,12 +122,12 @@ class DetailActivity : AppCompatActivity() {
         return super.onSupportNavigateUp()
     }
 
-    private fun setupViewModel() {
-        viewModel = ViewModelProvider(
-            this,
-            ViewModelFactory(DatabaseHelperImpl(DatabaseBuilder.getInstance(applicationContext)!!))
-        ).get(DetailViewModel::class.java)
-    }
+//    private fun setupViewModel() {
+//        viewModel = ViewModelProvider(
+//            this,
+//            ViewModelFactory(DatabaseHelperImpl(DatabaseBuilder.getInstance(applicationContext)!!))
+//        ).get(DetailViewModel::class.java)
+//    }
 
     private fun favoriteButton() {
         var saved = false
@@ -136,6 +137,7 @@ class DetailActivity : AppCompatActivity() {
                 val userFavorite = UserFavorite(
                     userDetail?.id,
                     userDetail?.name,
+                    userDetail?.avatar_url,
                     userDetail?.login,
                     userDetail?.followers,
                     userDetail?.following,
@@ -155,6 +157,7 @@ class DetailActivity : AppCompatActivity() {
                 val userFavorite = UserFavorite(
                     userDetail?.id,
                     userDetail?.name,
+                    userDetail?.avatar_url,
                     userDetail?.login,
                     userDetail?.followers,
                     userDetail?.following,

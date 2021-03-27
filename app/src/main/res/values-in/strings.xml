@@ -16,4 +16,6 @@
     <string name="favorite_button">Tombol Favorite</string>
     <string name="success_add_to_db">Berhasil ditambahkan ke favorit</string>
     <string name="success_delete_from_db">berhasil dihapus dari favorit</string>
+    <string name="favorites">Favorit</string>
+    <string name="empty_favorites">Kamu tidak memiliki pengguna favorit</string>
 </resources>

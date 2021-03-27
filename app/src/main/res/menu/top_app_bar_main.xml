@@ -6,10 +6,15 @@
         android:icon="@drawable/ic_baseline_search_24_black"
         android:title="@string/search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="collapseActionView|ifRoom" />
     <item
         android:id="@+id/setting"
         android:icon="@drawable/ic_baseline_settings_24_black"
         android:title="@string/setting"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="collapseActionView|ifRoom" />
+    <item
+        android:id="@+id/favorites"
+        android:icon="@drawable/ic_baseline_favorite_24"
+        android:title="@string/favorites"
+        app:showAsAction="collapseActionView|ifRoom" />
 </menu>

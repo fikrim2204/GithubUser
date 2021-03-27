@@ -15,4 +15,6 @@
     <string name="favorite_button">favorite button</string>
     <string name="success_add_to_db">was successfully added to favorites</string>
     <string name="success_delete_from_db">was successfully removed from a favorites</string>
+    <string name="favorites">Favorites</string>
+    <string name="empty_favorites">You have no favorites user</string>
 </resources>

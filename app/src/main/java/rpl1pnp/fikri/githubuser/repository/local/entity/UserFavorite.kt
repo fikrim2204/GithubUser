@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey
 data class UserFavorite(
     @PrimaryKey val id: Int?,
     @ColumnInfo(name = "name") val name: String?,
+    @ColumnInfo(name = "image") val image: String?,
     @ColumnInfo(name = "username") val username: String?,
     @ColumnInfo(name = "followers") val followers: Int?,
     @ColumnInfo(name = "following") val following: Int?,
