@@ -1,4 +1,4 @@
-package rpl1pnp.fikri.githubuser.network
+package rpl1pnp.fikri.githubuser.repository.network
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

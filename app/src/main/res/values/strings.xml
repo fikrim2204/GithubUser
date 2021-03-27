@@ -12,4 +12,7 @@
     <string name="change_language">Change language</string>
     <string name="no_followers">does\'nt have any follower yet</string>
     <string name="no_following">is\'nt following anybody</string>
+    <string name="favorite_button">favorite button</string>
+    <string name="success_add_to_db">was successfully added to favorites</string>
+    <string name="success_delete_from_db">was successfully removed from a favorites</string>
 </resources>

@@ -7,15 +7,11 @@
         android:iconTint="?attr/colorOnPrimary"
         android:title="@string/search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="collapseActionView|ifRoom" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/setting"
-        android:icon="@drawable/ic_baseline_more_vert_24"
+        android:icon="@drawable/ic_baseline_settings_24_black"
         android:iconTint="?attr/colorOnPrimary"
         android:title="@string/setting"
-        app:showAsAction="collapseActionView" />
-    <item
-        android:id="@+id/change_language"
-        android:title="@string/change_language"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
 </menu>

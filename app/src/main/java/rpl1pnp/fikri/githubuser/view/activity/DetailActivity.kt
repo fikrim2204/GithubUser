@@ -3,9 +3,9 @@ package rpl1pnp.fikri.githubuser.view.activity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import coil.load
 import com.google.android.material.tabs.TabLayout
@@ -13,13 +13,21 @@ import com.google.android.material.tabs.TabLayoutMediator
 import rpl1pnp.fikri.githubuser.R
 import rpl1pnp.fikri.githubuser.databinding.ActivityDetailBinding
 import rpl1pnp.fikri.githubuser.model.UserSingleResponse
+import rpl1pnp.fikri.githubuser.repository.local.AppDatabase
+import rpl1pnp.fikri.githubuser.repository.local.DatabaseBuilder
+import rpl1pnp.fikri.githubuser.repository.local.DatabaseHelperImpl
+import rpl1pnp.fikri.githubuser.repository.local.dao.UserFavoriteDao
+import rpl1pnp.fikri.githubuser.repository.local.entity.UserFavorite
+import rpl1pnp.fikri.githubuser.utils.ViewModelFactory
 import rpl1pnp.fikri.githubuser.utils.loading
 import rpl1pnp.fikri.githubuser.view.sectionpage.SectionPageAdapter
 import rpl1pnp.fikri.githubuser.viewmodel.DetailViewModel
 
 class DetailActivity : AppCompatActivity() {
-    private val viewModel: DetailViewModel by viewModels()
+    private lateinit var viewModel: DetailViewModel
     private lateinit var binding: ActivityDetailBinding
+    private var db: AppDatabase? = null
+    private var userFavoriteDao: UserFavoriteDao? = null
     private var login: String? = null
     private var userDetail: UserSingleResponse? = null
 
@@ -35,11 +43,13 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupViewModel()
         checkSavedInstance(savedInstanceState)
         setSupportActionBar(binding.toolbar)
         initBackButton()
         viewPager()
         viewModelObserve()
+        favoriteButton()
     }
 
     private fun checkSavedInstance(savedInstanceState: Bundle?) {
@@ -109,6 +119,58 @@ class DetailActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return super.onSupportNavigateUp()
+    }
+
+    private fun setupViewModel() {
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(DatabaseHelperImpl(DatabaseBuilder.getInstance(applicationContext)!!))
+        ).get(DetailViewModel::class.java)
+    }
+
+    private fun favoriteButton() {
+        var saved = false
+        binding.fabFavorite.show()
+        binding.fabFavorite.setOnClickListener {
+            if (!saved) {
+                val userFavorite = UserFavorite(
+                    userDetail?.id,
+                    userDetail?.name,
+                    userDetail?.login,
+                    userDetail?.followers,
+                    userDetail?.following,
+                    userDetail?.location,
+                    userDetail?.company,
+                    userDetail?.public_repos
+                )
+                viewModel.insert(userFavorite)
+
+                saved = true
+                val msg = getString(R.string.success_add_to_db)
+                binding.fabFavorite.hide()
+                binding.fabFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                binding.fabFavorite.show()
+//                Toast.makeText(this, "${userDetail?.name} $msg", Toast.LENGTH_SHORT).show()
+            } else if (saved) {
+                val userFavorite = UserFavorite(
+                    userDetail?.id,
+                    userDetail?.name,
+                    userDetail?.login,
+                    userDetail?.followers,
+                    userDetail?.following,
+                    userDetail?.location,
+                    userDetail?.company,
+                    userDetail?.public_repos
+                )
+                viewModel.delete(userFavorite)
+                saved = false
+                val msg = getString(R.string.success_delete_from_db)
+                binding.fabFavorite.hide()
+                binding.fabFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
+                binding.fabFavorite.show()
+//                Toast.makeText(this, "${userDetail?.name} $msg", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

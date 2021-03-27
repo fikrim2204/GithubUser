@@ -3,6 +3,8 @@ package rpl1pnp.fikri.githubuser.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -10,10 +12,14 @@ import retrofit2.Response
 import rpl1pnp.fikri.githubuser.model.DataFollow
 import rpl1pnp.fikri.githubuser.model.FollowersResponse
 import rpl1pnp.fikri.githubuser.model.UserSingleResponse
-import rpl1pnp.fikri.githubuser.network.ApiRepo
-import rpl1pnp.fikri.githubuser.network.Constant
+import rpl1pnp.fikri.githubuser.repository.local.DatabaseHelper
+import rpl1pnp.fikri.githubuser.repository.local.entity.UserFavorite
+import rpl1pnp.fikri.githubuser.repository.network.ApiRepo
+import rpl1pnp.fikri.githubuser.repository.network.Constant
 
-class DetailViewModel : ViewModel() {
+class DetailViewModel(private val dbHelper: DatabaseHelper) : ViewModel() {
+    private val _userFavoriteDb = MutableLiveData<List<UserFavorite>>()
+    val listFavoriteUser: LiveData<List<UserFavorite>> = _userFavoriteDb
     private val _responseDetail = MutableLiveData<UserSingleResponse?>()
     val listResponseDetail: LiveData<UserSingleResponse?> = _responseDetail
     private val _responseFollowers = MutableLiveData<ArrayList<DataFollow>?>()
@@ -26,6 +32,50 @@ class DetailViewModel : ViewModel() {
     val isLoading: LiveData<Boolean> = _isLoading
     private val mutableSelectedItem = MutableLiveData<String?>()
     val selectedItem: LiveData<String?> get() = mutableSelectedItem
+
+    init {
+//        getUserOnDb()
+    }
+
+    private fun getUserOnDb() {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                val userFromDb = dbHelper.getUser()
+                _userFavoriteDb.value = userFromDb
+                _isLoading.value = false
+            } catch (e: Exception) {
+                _responseFailure.value = "Something Went Wrong"
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun insert(userFavorite: UserFavorite) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                dbHelper.insert(userFavorite)
+                _isLoading.value = false
+            } catch (e: Exception) {
+                _responseFailure.value = "Something went wrong when trying to insert user"
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun delete(userFavorite: UserFavorite) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                dbHelper.delete(userFavorite)
+                _isLoading.value = false
+            } catch (e: Exception) {
+                _responseFailure.value = "Something went wrong when trying to delete user"
+                _isLoading.value = false
+            }
+        }
+    }
 
     fun getUserDetail(login: String?) {
         _isLoading.value = true

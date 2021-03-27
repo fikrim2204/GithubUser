@@ -2,7 +2,6 @@ package rpl1pnp.fikri.githubuser.view.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -10,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import rpl1pnp.fikri.githubuser.R
 import rpl1pnp.fikri.githubuser.adapter.MainAdapter
@@ -55,7 +55,8 @@ class MainFragment : Fragment() {
 
     private fun recyclerView() {
         binding.rvUserGithub.setHasFixedSize(true)
-        binding.rvUserGithub.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        binding.rvUserGithub.layoutManager =
+            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         adapter = MainAdapter {
             login = it.login
             val intent = Intent(activity, DetailActivity::class.java)
@@ -110,15 +111,13 @@ class MainFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.setting -> {
-                activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.fragment_container, SettingFragment())
-                    ?.addToBackStack(SettingFragment::class.java.simpleName)
-                    ?.commit()
+                activity?.supportFragmentManager?.commit {
+                    replace(
+                        R.id.fragment_container,
+                        SettingFragment()
+                    ).addToBackStack(SettingFragment::class.java.simpleName)
+                }
                 return true
-            }
-            R.id.change_language -> {
-                val intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
-                startActivity(intent)
             }
         }
         return super.onOptionsItemSelected(item)

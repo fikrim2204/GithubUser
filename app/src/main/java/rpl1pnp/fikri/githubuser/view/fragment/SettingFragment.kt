@@ -1,6 +1,8 @@
 package rpl1pnp.fikri.githubuser.view.fragment
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +30,7 @@ class SettingFragment : Fragment() {
         prefs = Prefs(requireActivity())
         binding.scDarkMode.isChecked = prefs.darkModePref
         darkMode()
+        changeLanguage()
     }
 
     private fun darkMode() {
@@ -39,6 +42,13 @@ class SettingFragment : Fragment() {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 prefs.darkModePref = false
             }
+        }
+    }
+
+    private fun changeLanguage() {
+        binding.cvChangeLanguage.setOnClickListener {
+            val intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+            startActivity(intent)
         }
     }
 
