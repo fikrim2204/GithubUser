@@ -1,15 +1,12 @@
 package rpl1pnp.fikri.githubuser.view.activity
 
 import android.app.Activity
-import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
-import android.view.Menu
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.commit
 import rpl1pnp.fikri.githubuser.R
 import rpl1pnp.fikri.githubuser.databinding.ActivityMainBinding
@@ -55,40 +52,39 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.top_app_bar_main, menu)
-        val searchManager =
-            getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView = menu?.findItem(R.id.search)?.actionView as SearchView
-
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-        searchView.queryHint = resources.getString(R.string.search_hint)
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                viewModel.getUser(query)
-                hideKeyboard()
-                return true
-            }
-
-            override fun onQueryTextChange(query: String?): Boolean {
-                return if (query?.length == null) {
-                    false
-                } else {
-                    if (query.length >= 3) {
-                        viewModel.getUser(query)
-                        true
-                    } else false
-                }
-            }
-        })
-        searchView.setOnCloseListener {
-            searchView.setQuery(EMPTY_QUERY, true)
-            false
-        }
-
-        return true
-    }
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        val inflater = menuInflater
+//        inflater.inflate(R.menu.top_app_bar_main, menu)
+//        val searchManager =
+//            getSystemService(Context.SEARCH_SERVICE) as SearchManager
+//        val searchView = menu?.findItem(R.id.search)?.actionView as SearchView
+//
+//        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+//        searchView.queryHint = resources.getString(R.string.search_hint)
+//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//                viewModel.getUser(query)
+//                hideKeyboard()
+//                return true
+//            }
+//
+//            override fun onQueryTextChange(query: String?): Boolean {
+//                return if (query?.length == null) {
+//                    false
+//                } else {
+//                    if (query.length >= 3) {
+//                        viewModel.getUser(query)
+//                        true
+//                    } else false
+//                }
+//            }
+//        })
+//        searchView.setOnCloseListener {
+//            searchView.setQuery(EMPTY_QUERY, true)
+//            false
+//        }
+//        return true
+//    }
 
     fun Activity.hideKeyboard() {
         hideKeyboard(currentFocus ?: View(this))

@@ -1,12 +1,14 @@
 package rpl1pnp.fikri.githubuser.view.fragment
 
+import android.app.Activity
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
@@ -31,6 +33,7 @@ class MainFragment : Fragment() {
 
     companion object {
         private const val LOGIN = "login"
+        private const val EMPTY_QUERY = "empty_query"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -111,6 +114,39 @@ class MainFragment : Fragment() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.top_app_bar_main, menu)
+        val searchManager =
+            activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView = menu.findItem(R.id.search)?.actionView as SearchView
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
+        searchView.queryHint = resources.getString(R.string.search_hint)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                viewModel.getUser(query)
+                hideKeyboard()
+                return true
+            }
+
+            override fun onQueryTextChange(query: String?): Boolean {
+                return if (query?.length == null) {
+                    false
+                } else {
+                    if (query.length >= 3) {
+                        viewModel.getUser(query)
+                        true
+                    } else false
+                }
+            }
+        })
+        searchView.setOnCloseListener {
+            searchView.setQuery(EMPTY_QUERY, true)
+            false
+        }
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.setting -> {
@@ -141,6 +177,16 @@ class MainFragment : Fragment() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun Fragment.hideKeyboard() {
+        view?.let { activity?.hideKeyboard(it) }
+    }
+
+    private fun Context.hideKeyboard(view: View) {
+        val inputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     override fun onDestroy() {

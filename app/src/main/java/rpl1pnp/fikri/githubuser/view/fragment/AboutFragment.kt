@@ -3,10 +3,7 @@ package rpl1pnp.fikri.githubuser.view.fragment
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import rpl1pnp.fikri.githubuser.R
@@ -51,6 +48,11 @@ class AboutFragment : Fragment() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.top_app_bar, menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.setting -> {
@@ -70,14 +72,6 @@ class AboutFragment : Fragment() {
                     ).addToBackStack(FavoritesFragment::class.java.simpleName)
                 }
                 return true
-            }
-            R.id.about -> {
-                activity?.supportFragmentManager?.commit {
-                    replace(
-                        R.id.fragment_container,
-                        AboutFragment()
-                    ).addToBackStack(AboutFragment::class.java.simpleName)
-                }
             }
         }
         return super.onOptionsItemSelected(item)

@@ -3,10 +3,7 @@ package rpl1pnp.fikri.githubuser.view.fragment
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -55,17 +52,13 @@ class SettingFragment : Fragment() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.top_app_bar, menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.setting -> {
-                activity?.supportFragmentManager?.commit {
-                    replace(
-                        R.id.fragment_container,
-                        SettingFragment()
-                    ).addToBackStack(SettingFragment::class.java.simpleName)
-                }
-                return true
-            }
             R.id.favorites -> {
                 activity?.supportFragmentManager?.commit {
                     replace(

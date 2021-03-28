@@ -2,12 +2,12 @@ package rpl1pnp.fikri.githubuser.view.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import rpl1pnp.fikri.githubuser.R
 import rpl1pnp.fikri.githubuser.adapter.UserFavAdapter
 import rpl1pnp.fikri.githubuser.databinding.FragmentFavoritesBinding
 import rpl1pnp.fikri.githubuser.repository.local.DatabaseBuilder
@@ -49,6 +49,25 @@ class FavoritesFragment : Fragment() {
         binding.srLayout.setOnRefreshListener { viewModel.getUserOnDb() }
     }
 
+    private fun setupViewModel() {
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(DatabaseHelperImpl(DatabaseBuilder.getInstance(requireActivity().applicationContext)))
+        ).get(DetailViewModel::class.java)
+    }
+
+    private fun initRecyclerView() {
+        binding.rvFavorites.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        userFavAdapter = UserFavAdapter {
+            val login = it.username
+            val intent = Intent(activity, DetailActivity::class.java)
+            intent.putExtra(LOGIN, login)
+            startActivity(intent)
+        }
+        binding.rvFavorites.adapter = userFavAdapter
+    }
+
     private fun viewModelObserve() {
         viewModel.listFavoriteUser.observe(viewLifecycleOwner, { userFav ->
             if (userFav.isEmpty()) {
@@ -70,23 +89,32 @@ class FavoritesFragment : Fragment() {
         })
     }
 
-    private fun initRecyclerView() {
-        binding.rvFavorites.layoutManager =
-            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        userFavAdapter = UserFavAdapter {
-            val login = it.username
-            val intent = Intent(activity, DetailActivity::class.java)
-            intent.putExtra(LOGIN, login)
-            startActivity(intent)
-        }
-        binding.rvFavorites.adapter = userFavAdapter
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.top_app_bar, menu)
     }
 
-    private fun setupViewModel() {
-        viewModel = ViewModelProvider(
-            this,
-            ViewModelFactory(DatabaseHelperImpl(DatabaseBuilder.getInstance(requireActivity().applicationContext)))
-        ).get(DetailViewModel::class.java)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.setting -> {
+                activity?.supportFragmentManager?.commit {
+                    replace(
+                        R.id.fragment_container,
+                        SettingFragment()
+                    ).addToBackStack(SettingFragment::class.java.simpleName)
+                }
+                return true
+            }
+            R.id.about -> {
+                activity?.supportFragmentManager?.commit {
+                    replace(
+                        R.id.fragment_container,
+                        AboutFragment()
+                    ).addToBackStack(AboutFragment::class.java.simpleName)
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroy() {
