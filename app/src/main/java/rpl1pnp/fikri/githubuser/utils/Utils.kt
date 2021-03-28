@@ -10,7 +10,7 @@ fun loading(loading: Boolean): Int {
     }
 }
 
-fun recyclerViewState(loading: Boolean): Int {
+fun viewState(loading: Boolean): Int {
     return if (!loading) {
         View.VISIBLE
     } else {

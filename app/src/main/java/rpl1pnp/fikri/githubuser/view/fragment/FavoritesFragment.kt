@@ -1,24 +1,35 @@
 package rpl1pnp.fikri.githubuser.view.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import rpl1pnp.fikri.githubuser.adapter.UserFavAdapter
 import rpl1pnp.fikri.githubuser.databinding.FragmentFavoritesBinding
+import rpl1pnp.fikri.githubuser.repository.local.DatabaseBuilder
+import rpl1pnp.fikri.githubuser.repository.local.DatabaseHelperImpl
+import rpl1pnp.fikri.githubuser.utils.ViewModelFactory
+import rpl1pnp.fikri.githubuser.view.activity.DetailActivity
+import rpl1pnp.fikri.githubuser.view.activity.MainActivity
 import rpl1pnp.fikri.githubuser.viewmodel.DetailViewModel
 
 class FavoritesFragment : Fragment() {
-    private val viewModel: DetailViewModel by activityViewModels()
+    private lateinit var viewModel: DetailViewModel
     private val binding get() = _binding!!
     private var _binding: FragmentFavoritesBinding? = null
     private lateinit var userFavAdapter: UserFavAdapter
 
+    companion object {
+        private const val LOGIN = "login_favorite"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -31,23 +42,55 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModelObserve()
+        (activity as MainActivity).supportActionBar?.title = "Favorite User"
+        setupViewModel()
         initRecyclerView()
+        viewModelObserve()
+        binding.srLayout.setOnRefreshListener { viewModel.getUserOnDb() }
     }
 
     private fun viewModelObserve() {
-        viewModel.listUserFavorites.observe(viewLifecycleOwner, { userFav ->
-            userFav?.let { userFavAdapter.listUserFav = it }
+        viewModel.listFavoriteUser.observe(viewLifecycleOwner, { userFav ->
+            if (userFav.isEmpty()) {
+                with(binding) {
+                    rvFavorites.visibility = View.GONE
+                    ivFavoriteEmpty.visibility = View.VISIBLE
+                    tvFavoriteEmpty.visibility = View.VISIBLE
+                }
+            } else {
+                userFav.let { userFavAdapter.listUserFav = it }
+                with(binding) {
+                    rvFavorites.visibility = View.VISIBLE
+                    ivFavoriteEmpty.visibility = View.GONE
+                    tvFavoriteEmpty.visibility = View.GONE
+                }
+            }
             userFavAdapter.notifyDataSetChanged()
+            binding.srLayout.isRefreshing = false
         })
     }
 
     private fun initRecyclerView() {
         binding.rvFavorites.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        userFavAdapter = UserFavAdapter()
+        userFavAdapter = UserFavAdapter {
+            val login = it.username
+            val intent = Intent(activity, DetailActivity::class.java)
+            intent.putExtra(LOGIN, login)
+            startActivity(intent)
+        }
         binding.rvFavorites.adapter = userFavAdapter
     }
 
+    private fun setupViewModel() {
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(DatabaseHelperImpl(DatabaseBuilder.getInstance(requireActivity().applicationContext)))
+        ).get(DetailViewModel::class.java)
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

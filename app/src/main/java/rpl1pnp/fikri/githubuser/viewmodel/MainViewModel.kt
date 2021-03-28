@@ -19,8 +19,8 @@ class MainViewModel() : ViewModel() {
     val listResponseFailure: LiveData<String> = _responseFailure
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
-    private val _isFailed = MutableLiveData<String?>()
-    val failedResponse: LiveData<String?> = _isFailed
+    private val _failed = MutableLiveData<String?>()
+    val failedResponse: LiveData<String?> = _failed
 
     fun getUser(query: String?) {
         _isLoading.value = true
@@ -43,7 +43,7 @@ class MainViewModel() : ViewModel() {
 
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                 _isLoading.value = false
-                _isFailed.value = t.message
+                _failed.value = t.message
             }
         })
     }

@@ -4,13 +4,15 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import kotlinx.coroutines.flow.Flow
 import rpl1pnp.fikri.githubuser.repository.local.entity.UserFavorite
 
 @Dao
 interface UserFavoriteDao {
     @Query("SELECT * FROM userFavorite")
-    fun getAll(): Flow<List<UserFavorite>>
+    suspend fun getAll(): List<UserFavorite>
+
+    @Query("SELECT * FROM userFavorite WHERE id=:id")
+    suspend fun getById(id: Int?): UserFavorite
 
     @Insert
     suspend fun insert(vararg userFavorite: UserFavorite)

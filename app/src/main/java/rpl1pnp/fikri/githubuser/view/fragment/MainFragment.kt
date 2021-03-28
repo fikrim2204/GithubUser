@@ -16,8 +16,9 @@ import rpl1pnp.fikri.githubuser.adapter.MainAdapter
 import rpl1pnp.fikri.githubuser.databinding.FragmentMainBinding
 import rpl1pnp.fikri.githubuser.model.UserSingleResponse
 import rpl1pnp.fikri.githubuser.utils.loading
-import rpl1pnp.fikri.githubuser.utils.recyclerViewState
+import rpl1pnp.fikri.githubuser.utils.viewState
 import rpl1pnp.fikri.githubuser.view.activity.DetailActivity
+import rpl1pnp.fikri.githubuser.view.activity.MainActivity
 import rpl1pnp.fikri.githubuser.viewmodel.MainViewModel
 
 class MainFragment : Fragment() {
@@ -49,7 +50,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.ivSearch.visibility = View.VISIBLE
-
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.app_name)
         recyclerView()
         viewModelObserve()
     }
@@ -86,7 +87,7 @@ class MainFragment : Fragment() {
         viewModel.isLoading.observe(viewLifecycleOwner, {
             searchImage(it)
             binding.loading.visibility = loading(it)
-            binding.rvUserGithub.visibility = recyclerViewState(it)
+            binding.rvUserGithub.visibility = viewState(it)
         })
 
         viewModel.failedResponse.observe(viewLifecycleOwner, {

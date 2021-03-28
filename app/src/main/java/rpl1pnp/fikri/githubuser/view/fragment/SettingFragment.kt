@@ -10,11 +10,17 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import rpl1pnp.fikri.githubuser.databinding.FragmentSettingBinding
 import rpl1pnp.fikri.githubuser.utils.Prefs
+import rpl1pnp.fikri.githubuser.view.activity.MainActivity
 
 class SettingFragment : Fragment() {
     private val binding get() = _binding!!
     private var _binding: FragmentSettingBinding? = null
     private lateinit var prefs: Prefs
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +33,7 @@ class SettingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).supportActionBar?.title = "Setting"
         prefs = Prefs(requireActivity())
         binding.scDarkMode.isChecked = prefs.darkModePref
         darkMode()

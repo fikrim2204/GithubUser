@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GithubUser</string>
+    <string name="app_name">Github User</string>
     <string name="repository">Repository</string>
     <string name="following">Following</string>
     <string name="followers">Followers</string>
@@ -17,4 +17,5 @@
     <string name="success_delete_from_db">was successfully removed from a favorites</string>
     <string name="favorites">Favorites</string>
     <string name="empty_favorites">You have no favorites user</string>
+    <string name="image_favorites">Image Favorites</string>
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GithubUser</string>
+    <string name="app_name">Github User</string>
     <string name="repository">Penyimpanan</string>
     <string name="following">Mengikuti</string>
     <string name="followers">Pengikut</string>
@@ -18,4 +18,5 @@
     <string name="success_delete_from_db">berhasil dihapus dari favorit</string>
     <string name="favorites">Favorit</string>
     <string name="empty_favorites">Kamu tidak memiliki pengguna favorit</string>
+    <string name="image_favorites">Gambar Favorit</string>
 </resources>

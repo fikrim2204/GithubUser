@@ -1,6 +1,10 @@
 package rpl1pnp.fikri.githubuser.viewmodel
 
-import androidx.lifecycle.*
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import retrofit2.Call
@@ -9,12 +13,16 @@ import retrofit2.Response
 import rpl1pnp.fikri.githubuser.model.DataFollow
 import rpl1pnp.fikri.githubuser.model.FollowersResponse
 import rpl1pnp.fikri.githubuser.model.UserSingleResponse
-import rpl1pnp.fikri.githubuser.repository.local.DatabaseRepository
+import rpl1pnp.fikri.githubuser.repository.local.DatabaseHelper
 import rpl1pnp.fikri.githubuser.repository.local.entity.UserFavorite
 import rpl1pnp.fikri.githubuser.repository.network.ApiRepo
 import rpl1pnp.fikri.githubuser.repository.network.Constant
 
-class DetailViewModel(private val repository: DatabaseRepository) : ViewModel() {
+class DetailViewModel(private val dbHelper: DatabaseHelper) : ViewModel() {
+    private val _searchUserbyId = MutableLiveData<UserFavorite>()
+    val userSearchById: LiveData<UserFavorite> = _searchUserbyId
+    private val _userFavoriteDb = MutableLiveData<List<UserFavorite>>()
+    val listFavoriteUser: LiveData<List<UserFavorite>> = _userFavoriteDb
     private val _responseDetail = MutableLiveData<UserSingleResponse?>()
     val listResponseDetail: LiveData<UserSingleResponse?> = _responseDetail
     private val _responseFollowers = MutableLiveData<ArrayList<DataFollow>?>()
@@ -27,15 +35,44 @@ class DetailViewModel(private val repository: DatabaseRepository) : ViewModel() 
     val isLoading: LiveData<Boolean> = _isLoading
     private val mutableSelectedItem = MutableLiveData<String?>()
     val selectedItem: LiveData<String?> get() = mutableSelectedItem
+    private val _failed = MutableLiveData<String?>()
+    val failedResponse: LiveData<String?> = _failed
 
-    val listUserFavorites: LiveData<List<UserFavorite>> = repository.allUserFavorites.asLiveData()
+    init {
+        getUserOnDb()
+    }
+
+    fun getUserOnDb() {
+        viewModelScope.launch {
+            try {
+                val userFromDb = dbHelper.getAllUser()
+                _userFavoriteDb.value = userFromDb
+            } catch (e: Exception) {
+                _isLoading.value = false
+                _responseFailure.value = "Something went wrong when get user"
+                Log.d("TAG", "${e.message}")
+            }
+        }
+    }
+
+    fun getUserById(id: Int?) {
+        viewModelScope.launch {
+            try {
+                val search = dbHelper.getById(id)
+                _searchUserbyId.value = search
+            } catch (e: Exception) {
+                _responseFailure.value = "Something went wrong when searching user"
+            }
+        }
+    }
 
     fun insert(userFavorite: UserFavorite) {
         viewModelScope.launch {
             try {
-                repository.insert(userFavorite)
+                dbHelper.insert(userFavorite)
             } catch (e: Exception) {
                 _responseFailure.value = "Something went wrong when trying to insert user"
+                Log.d("TAG", "${e.message}")
             }
         }
     }
@@ -43,9 +80,10 @@ class DetailViewModel(private val repository: DatabaseRepository) : ViewModel() 
     fun delete(userFavorite: UserFavorite) {
         viewModelScope.launch {
             try {
-                repository.delete(userFavorite)
+                dbHelper.delete(userFavorite)
             } catch (e: Exception) {
                 _responseFailure.value = "Something went wrong when trying to delete user"
+                Log.d("TAG", "${e.message}")
             }
         }
     }
@@ -69,6 +107,7 @@ class DetailViewModel(private val repository: DatabaseRepository) : ViewModel() 
 
             override fun onFailure(call: Call<UserSingleResponse>, t: Throwable) {
                 _isLoading.value = false
+                _failed.value = t.message
             }
 
         })
