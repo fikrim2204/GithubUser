@@ -9,43 +9,28 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.commit
 import rpl1pnp.fikri.githubuser.R
 import rpl1pnp.fikri.githubuser.databinding.ActivityMainBinding
-import rpl1pnp.fikri.githubuser.utils.Prefs
 import rpl1pnp.fikri.githubuser.view.fragment.MainFragment
 import rpl1pnp.fikri.githubuser.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
-    private lateinit var prefs: Prefs
 
     companion object {
         private const val EMPTY_QUERY = "empty_query"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        initTheme()
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         createActionBar()
         initFragment()
-    }
-
-    private fun initTheme() {
-        prefs = Prefs(this)
-        prefs.darkModePref
-        val darkMode = prefs.darkModePref
-        if (darkMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
     }
 
     private fun createActionBar() {

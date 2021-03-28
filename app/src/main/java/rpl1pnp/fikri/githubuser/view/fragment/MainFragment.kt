@@ -131,6 +131,14 @@ class MainFragment : Fragment() {
                 }
                 return true
             }
+            R.id.about -> {
+                activity?.supportFragmentManager?.commit {
+                    replace(
+                        R.id.fragment_container,
+                        AboutFragment()
+                    ).addToBackStack(AboutFragment::class.java.simpleName)
+                }
+            }
         }
         return super.onOptionsItemSelected(item)
     }

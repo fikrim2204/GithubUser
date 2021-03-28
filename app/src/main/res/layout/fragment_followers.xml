@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".view.fragment.FollowersFragment">
 
+    <ImageView
+        android:id="@+id/iv_no_followers"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/not_found"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tv_no_followers"
         android:layout_width="0dp"
@@ -17,7 +27,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_no_followers"
         tools:text="No followers" />
 
     <androidx.recyclerview.widget.RecyclerView
