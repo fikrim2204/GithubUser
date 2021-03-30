@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import rpl1pnp.fikri.githubuser.R
 import rpl1pnp.fikri.githubuser.databinding.FragmentSettingBinding
+import rpl1pnp.fikri.githubuser.service.AlarmReceiver
 import rpl1pnp.fikri.githubuser.utils.Prefs
 import rpl1pnp.fikri.githubuser.view.activity.MainActivity
 
@@ -16,6 +17,7 @@ class SettingFragment : Fragment() {
     private val binding get() = _binding!!
     private var _binding: FragmentSettingBinding? = null
     private lateinit var prefs: Prefs
+    private lateinit var alarmReceiver: AlarmReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +28,6 @@ class SettingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         _binding = FragmentSettingBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -36,8 +37,30 @@ class SettingFragment : Fragment() {
         (activity as MainActivity).supportActionBar?.title = "Setting"
         prefs = Prefs(requireActivity())
         binding.scDarkMode.isChecked = prefs.darkModePref
+        binding.scReminder.isChecked = prefs.reminderPrefs
         darkMode()
+        reminder()
         changeLanguage()
+        alarmReceiver = AlarmReceiver()
+    }
+
+    private fun reminder() {
+        binding.scReminder.setOnCheckedChangeListener { compoundButton, b ->
+            if (b) {
+                val repeatTime = getString(R.string.reminder_time)
+                val repeatMessage = getString(R.string.reminder_message)
+                alarmReceiver.setRepeatingAlarm(
+                    requireActivity(),
+                    AlarmReceiver.TYPE_REPEATING,
+                    repeatTime,
+                    repeatMessage
+                )
+                prefs.reminderPrefs = true
+            } else {
+                alarmReceiver.cancelAlarm(requireActivity())
+                prefs.reminderPrefs = false
+            }
+        }
     }
 
     private fun darkMode() {

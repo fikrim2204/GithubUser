@@ -117,6 +117,11 @@ class FavoritesFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getUserOnDb()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

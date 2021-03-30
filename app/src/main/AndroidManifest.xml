@@ -3,6 +3,8 @@
     package="rpl1pnp.fikri.githubuser">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubUser">
-        <activity android:name=".view.activity.DetailActivity"/>
+        <activity android:name=".view.activity.DetailActivity" />
         <activity
             android:name=".view.activity.SplashScreenActivity"
             android:theme="@style/SplashScreenTheme">
@@ -22,6 +24,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.MainActivity" />
+
+        <receiver
+            android:name=".service.AlarmReceiver"
+            android:enabled="true" />
     </application>
 
 </manifest>

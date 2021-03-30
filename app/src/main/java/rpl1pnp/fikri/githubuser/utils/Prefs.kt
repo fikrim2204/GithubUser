@@ -10,7 +10,12 @@ class Prefs(context: Context) {
     companion object {
         private const val APP_PREF = "application_preference"
         private const val DARK_MODE = "dark_mode"
+        private const val REMINDER = "reminder"
     }
+
+    var reminderPrefs: Boolean
+        get() = preferences.getBoolean(REMINDER, false)
+        set(value) = preferences.edit().putBoolean(REMINDER, value).apply()
 
     var darkModePref: Boolean
         get() = preferences.getBoolean(DARK_MODE, false)
