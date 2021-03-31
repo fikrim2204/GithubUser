@@ -35,8 +35,8 @@ class FollowersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModelObserve(savedInstanceState)
         initRecyclerView()
+        viewModelObserve(savedInstanceState)
     }
 
     private fun initRecyclerView() {
@@ -46,7 +46,6 @@ class FollowersFragment : Fragment() {
             val loginFollowers = it.login
             viewModel.getUserDetail(loginFollowers)
         }
-        adapterFollow.notifyDataSetChanged()
         binding.rvFollowers.adapter = adapterFollow
     }
 

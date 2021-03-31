@@ -46,7 +46,7 @@ class FavoritesFragment : Fragment() {
         setupViewModel()
         initRecyclerView()
         viewModelObserve()
-        binding.srLayout.setOnRefreshListener { viewModel.getUserOnDb() }
+        binding.srLayout.setOnRefreshListener { viewModel.getUser() }
     }
 
     private fun setupViewModel() {
@@ -119,7 +119,7 @@ class FavoritesFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getUserOnDb()
+        viewModel.getUser()
     }
 
     override fun onDestroy() {

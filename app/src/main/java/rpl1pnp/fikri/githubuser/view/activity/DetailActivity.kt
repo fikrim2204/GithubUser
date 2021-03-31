@@ -160,18 +160,7 @@ class DetailActivity : AppCompatActivity() {
                     binding.fabFavorite.show()
                     Toast.makeText(this, "${userDetail?.login} $msg", Toast.LENGTH_SHORT).show()
                 } else {
-                    val userFavorite = UserFavorite(
-                        userDetail?.id,
-                        userDetail?.name,
-                        userDetail?.avatar_url,
-                        userDetail?.login,
-                        userDetail?.followers,
-                        userDetail?.following,
-                        userDetail?.location,
-                        userDetail?.company,
-                        userDetail?.public_repos
-                    )
-                    viewModel.delete(userFavorite)
+                    viewModel.delete(userDetail?.id)
                     saved = false
                     val msg = getString(R.string.success_delete_from_db)
                     binding.fabFavorite.hide()

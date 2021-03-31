@@ -13,12 +13,12 @@ import retrofit2.Response
 import rpl1pnp.fikri.githubuser.model.DataFollow
 import rpl1pnp.fikri.githubuser.model.FollowersResponse
 import rpl1pnp.fikri.githubuser.model.UserSingleResponse
-import rpl1pnp.fikri.githubuser.repository.local.DatabaseHelper
+import rpl1pnp.fikri.githubuser.repository.local.DatabaseHelperImpl
 import rpl1pnp.fikri.githubuser.repository.local.entity.UserFavorite
 import rpl1pnp.fikri.githubuser.repository.network.ApiRepo
 import rpl1pnp.fikri.githubuser.repository.network.Constant
 
-class DetailViewModel(private val dbHelper: DatabaseHelper) : ViewModel() {
+class DetailViewModel(private val dbHelper: DatabaseHelperImpl) : ViewModel() {
     private val _searchUserbyId = MutableLiveData<UserFavorite>()
     val userSearchById: LiveData<UserFavorite> = _searchUserbyId
     private val _userFavoriteDb = MutableLiveData<List<UserFavorite>>()
@@ -39,10 +39,10 @@ class DetailViewModel(private val dbHelper: DatabaseHelper) : ViewModel() {
     val failedResponse: LiveData<String?> = _failed
 
     init {
-        getUserOnDb()
+        getUser()
     }
 
-    fun getUserOnDb() {
+    fun getUser() {
         viewModelScope.launch {
             try {
                 val userFromDb = dbHelper.getAllUser()
@@ -77,10 +77,10 @@ class DetailViewModel(private val dbHelper: DatabaseHelper) : ViewModel() {
         }
     }
 
-    fun delete(userFavorite: UserFavorite) {
+    fun delete(id: Int?) {
         viewModelScope.launch {
             try {
-                dbHelper.delete(userFavorite)
+                dbHelper.delete(id)
             } catch (e: Exception) {
                 _responseFailure.value = "Something went wrong when trying to delete user"
                 Log.d("TAG", "${e.message}")
