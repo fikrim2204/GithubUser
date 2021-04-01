@@ -17,26 +17,25 @@ class UserFavoriteHelper() {
         val CONTENT_URI = Uri.parse("content://${UserFavoriteProvider.AUTHORITY}/userFavorite")
     }
 
-    fun getUser(context: Context): LiveData<List<UserFavorite>?> {
-        val listUserFavorite = MutableLiveData<List<UserFavorite>?>()
+    fun getUser(context: Context): List<UserFavorite> {
+        var listUserFavorite: List<UserFavorite> = mutableListOf()
 
         val cursor = context.contentResolver.query(CONTENT_URI, null, null, null, null)
         cursor?.let {
-            listUserFavorite.value = it.toListUserFavorite()
-            it.close()
+            listUserFavorite = it.toListUserFavorite()
         }
+        cursor?.close()
         return listUserFavorite
     }
 
-    fun getUserById(id: Int, context: Context): LiveData<UserFavorite> {
-        val userFavorite = MutableLiveData<UserFavorite>()
-
+    fun getUserById(id: Int?, context: Context): UserFavorite {
+        var userFavorite = UserFavorite(null, null, null, null, null, null, null, null, null)
         val cursor =
             context.contentResolver.query("$CONTENT_URI/$id".toUri(), null, null, null, null)
         cursor?.let {
-            userFavorite.value = it.toUserFavorite()
-            it.close()
+            userFavorite = it.toUserFavorite()
         }
+        cursor?.close()
         return userFavorite
     }
 
@@ -50,11 +49,7 @@ class UserFavoriteHelper() {
         return userFavoriteLive
     }
 
-    fun deleteFavorite(id: Int, context: Context): LiveData<Int> {
-        val deletedUser = MutableLiveData<Int>()
-
-        val cursor = context.contentResolver.delete("$CONTENT_URI/$id".toUri(), null, null)
-        cursor.let { deletedUser.value = cursor }
-        return deletedUser
+    fun deleteFavorite(id: Int?, context: Context){
+        context.contentResolver.delete("$CONTENT_URI/$id".toUri(), null, null)
     }
 }

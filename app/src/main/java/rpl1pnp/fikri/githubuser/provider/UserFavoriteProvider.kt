@@ -13,13 +13,13 @@ import rpl1pnp.fikri.githubuser.utils.toUserFavorite
 class UserFavoriteProvider : ContentProvider() {
 
     companion object {
-        const val AUTHORITY = "rpl1pnp.fikri.githubuser.provider.UserFavoriteProvider"
-        val CONTENT_URI = Uri.parse("content://$AUTHORITY/userFavorite")
+        const val AUTHORITY = "rpl1pnp.fikri.githubuser"
+        private const val DBNAME = "userFavorite"
+        val CONTENT_URI = Uri.parse("content://$AUTHORITY/$DBNAME")
         private const val USERFAVORITE = 1
         private const val USERFAVORITE_ID = 2
         private val uriMatcher = UriMatcher(UriMatcher.NO_MATCH)
         private lateinit var databaseHelper: DatabaseHelperImpl
-        private const val DBNAME = "userFavorite"
     }
 
     init {

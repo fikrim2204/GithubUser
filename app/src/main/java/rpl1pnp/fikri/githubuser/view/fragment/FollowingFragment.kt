@@ -46,11 +46,15 @@ class FollowingFragment : Fragment() {
                 adapter.follow = following
                 adapter.notifyDataSetChanged()
                 if (following.size != 0) {
+                    binding.rvFollowing.visibility = View.VISIBLE
                     binding.tvNoFollowing.visibility = View.GONE
+                    binding.ivNoFollowing.visibility = View.GONE
                 } else {
+                    binding.rvFollowing.visibility = View.GONE
                     val noFollowing = login + " " + getString(R.string.no_following)
                     binding.tvNoFollowing.text = noFollowing
                     binding.tvNoFollowing.visibility = View.VISIBLE
+                    binding.ivNoFollowing.visibility = View.VISIBLE
                 }
             }
         })

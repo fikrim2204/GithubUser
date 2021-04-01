@@ -44,9 +44,12 @@ class FavoritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).supportActionBar?.title = "Favorite User"
         setupViewModel()
+        viewModel.getUser()
         initRecyclerView()
         viewModelObserve()
-        binding.srLayout.setOnRefreshListener { viewModel.getUser() }
+        binding.srLayout.setOnRefreshListener {
+            viewModel.getUser()
+        }
     }
 
     private fun setupViewModel() {
@@ -115,11 +118,6 @@ class FavoritesFragment : Fragment() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getUser()
     }
 
     override fun onDestroy() {

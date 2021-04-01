@@ -56,10 +56,14 @@ class FollowersFragment : Fragment() {
                 adapterFollow.follow = item
                 adapterFollow.notifyDataSetChanged()
                 if (followers.size != 0) {
+                    binding.rvFollowers.visibility = View.VISIBLE
                     binding.tvNoFollowers.visibility = View.GONE
+                    binding.ivNoFollowers.visibility = View.GONE
                 } else {
+                    binding.rvFollowers.visibility = View.GONE
                     val noFollowers = login + " " + getString(R.string.no_followers)
                     binding.tvNoFollowers.text = noFollowers
+                    binding.ivNoFollowers.visibility = View.VISIBLE
                     binding.tvNoFollowers.visibility = View.VISIBLE
                 }
             }
