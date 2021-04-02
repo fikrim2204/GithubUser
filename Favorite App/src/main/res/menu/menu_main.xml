@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/setting"
-        android:icon="@drawable/ic_baseline_settings_24_white"
-        android:title="@string/setting"
+        android:icon="@drawable/ic_baseline_language_24"
+        android:title="@string/change_language"
         app:showAsAction="ifRoom" />
 </menu>

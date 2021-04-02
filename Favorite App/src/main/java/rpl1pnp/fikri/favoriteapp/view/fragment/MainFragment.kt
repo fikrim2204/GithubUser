@@ -20,6 +20,10 @@ class MainFragment : Fragment() {
     private lateinit var userFavAdapter: UserFavAdapter
     private lateinit var userFavoriteList: List<UserFavorite>
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
