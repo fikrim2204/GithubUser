@@ -3,7 +3,6 @@
     <string name="repository">Repository</string>
     <string name="following">Following</string>
     <string name="followers">Followers</string>
-    <string name="search">Search</string>
     <string name="search_hint">Insert keyword</string>
     <string name="search_image">Search Image</string>
     <string name="user_not_found">User not found!</string>
@@ -13,8 +12,8 @@
     <string name="no_followers">does\'nt have any follower yet</string>
     <string name="no_following">is\'nt following anybody</string>
     <string name="favorite_button">favorite button</string>
-    <string name="success_add_to_db">was successfully added to favorites</string>
-    <string name="success_delete_from_db">was successfully removed from a favorites</string>
+    <string name="success_add_to_db">Added to favorites</string>
+    <string name="success_delete_from_db">Removed from favorites</string>
     <string name="favorites">Favorites</string>
     <string name="empty_favorites">You have no favorites user</string>
     <string name="image_favorites">Image Favorites</string>
@@ -29,4 +28,5 @@
     <string name="reminder_time">09:00</string>
     <string name="image_no_followers">Image no followers</string>
     <string name="image_no_following">Image no following</string>
+    <string name="search">Search</string>
 </resources>

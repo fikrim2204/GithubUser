@@ -3,7 +3,7 @@
     <style name="Theme.GithubUser" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryVariant">@color/grey_900</item>
+        <item name="colorPrimaryVariant">@color/grey_600</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/blue_500</item>

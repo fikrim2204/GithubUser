@@ -27,13 +27,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         createActionBar()
-        initFragment()
+//        initFragment()
     }
 
     private fun createActionBar() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {
-            title = "Github User"
+            title = getString(R.string.app_name)
         }
     }
 

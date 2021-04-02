@@ -4,8 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import rpl1pnp.fikri.githubuser.R
 import rpl1pnp.fikri.githubuser.adapter.UserFavAdapter
@@ -94,27 +94,18 @@ class FavoritesFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.top_app_bar, menu)
+        inflater.inflate(R.menu.top_app_bar_setting, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.setting -> {
-                activity?.supportFragmentManager?.commit {
-                    replace(
-                        R.id.fragment_container,
-                        SettingFragment()
-                    ).addToBackStack(SettingFragment::class.java.simpleName)
-                }
+            R.id.search -> {
+                findNavController().navigate(R.id.action_favoritesFragment_to_mainFragment)
                 return true
             }
-            R.id.about -> {
-                activity?.supportFragmentManager?.commit {
-                    replace(
-                        R.id.fragment_container,
-                        AboutFragment()
-                    ).addToBackStack(AboutFragment::class.java.simpleName)
-                }
+            R.id.setting -> {
+                    findNavController().navigate(R.id.action_favoritesFragment_to_settingFragment)
+                return true
             }
         }
         return super.onOptionsItemSelected(item)

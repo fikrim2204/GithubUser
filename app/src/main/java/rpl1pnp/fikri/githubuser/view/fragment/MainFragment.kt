@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.commit
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import rpl1pnp.fikri.githubuser.R
 import rpl1pnp.fikri.githubuser.adapter.MainAdapter
@@ -33,7 +33,7 @@ class MainFragment : Fragment() {
 
     companion object {
         private const val LOGIN = "login"
-        private const val EMPTY_QUERY = "empty_query"
+        private const val EMPTY_QUERY = ""
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -150,30 +150,16 @@ class MainFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.setting -> {
-                activity?.supportFragmentManager?.commit {
-                    replace(
-                        R.id.fragment_container,
-                        SettingFragment()
-                    ).addToBackStack(SettingFragment::class.java.simpleName)
-                }
+                findNavController().navigate(R.id.action_mainFragment_to_settingFragment)
                 return true
             }
             R.id.favorites -> {
-                activity?.supportFragmentManager?.commit {
-                    replace(
-                        R.id.fragment_container,
-                        FavoritesFragment()
-                    ).addToBackStack(FavoritesFragment::class.java.simpleName)
-                }
+                findNavController().navigate(R.id.action_mainFragment_to_favoritesFragment)
                 return true
             }
             R.id.about -> {
-                activity?.supportFragmentManager?.commit {
-                    replace(
-                        R.id.fragment_container,
-                        AboutFragment()
-                    ).addToBackStack(AboutFragment::class.java.simpleName)
-                }
+                findNavController().navigate(R.id.action_mainFragment_to_aboutFragment)
+                return true
             }
         }
         return super.onOptionsItemSelected(item)

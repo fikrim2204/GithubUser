@@ -6,4 +6,5 @@
     <string name="following">Following</string>
     <string name="favorite_button">Favorite button</string>
     <string name="followers">Followers</string>
+    <string name="setting">Setting</string>
 </resources>

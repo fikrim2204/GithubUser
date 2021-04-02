@@ -14,8 +14,8 @@
     <string name="no_followers">tidak memiliki pengikut</string>
     <string name="no_following">tidak mengikuti siapapun</string>
     <string name="favorite_button">Tombol Favorite</string>
-    <string name="success_add_to_db">Berhasil ditambahkan ke favorit</string>
-    <string name="success_delete_from_db">berhasil dihapus dari favorit</string>
+    <string name="success_add_to_db">Ditambahkan ke favorit</string>
+    <string name="success_delete_from_db">Dihapus dari favorit</string>
     <string name="favorites">Favorit</string>
     <string name="empty_favorites">Kamu tidak memiliki pengguna favorit</string>
     <string name="image_favorites">Gambar Favorit</string>
