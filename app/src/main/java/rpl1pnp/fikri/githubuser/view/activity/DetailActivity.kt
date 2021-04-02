@@ -158,7 +158,7 @@ class DetailActivity : AppCompatActivity() {
                     binding.fabFavorite.hide()
                     binding.fabFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
                     binding.fabFavorite.show()
-                    Toast.makeText(this, "${userDetail?.login} $msg", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
                 } else {
                     viewModel.delete(userDetail?.id)
                     saved = false
@@ -166,7 +166,7 @@ class DetailActivity : AppCompatActivity() {
                     binding.fabFavorite.hide()
                     binding.fabFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24)
                     binding.fabFavorite.show()
-                    Toast.makeText(this, "${userDetail?.login} $msg", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
                 }
             } else {
                 val msg = getString(R.string.user_not_found)

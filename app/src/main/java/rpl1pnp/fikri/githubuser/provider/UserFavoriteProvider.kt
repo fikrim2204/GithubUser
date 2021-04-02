@@ -1,7 +1,6 @@
 package rpl1pnp.fikri.githubuser.provider
 
 import android.content.ContentProvider
-import android.content.ContentUris
 import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
@@ -35,19 +34,12 @@ class UserFavoriteProvider : ContentProvider() {
         uri: Uri, projection: Array<String>?, selection: String?,
         selectionArgs: Array<String>?, sortOrder: String?
     ): Cursor? {
-        val code = uriMatcher.match(uri)
-        return if (code == USERFAVORITE || code == USERFAVORITE_ID) {
-            val context = context ?: return null
-            databaseHelper = DatabaseHelperImpl(DatabaseBuilder.getInstance(context))
-            val cursor: Cursor = if (code == USERFAVORITE) {
-                databaseHelper.getAllUserProvider()
-            } else {
-                databaseHelper.getByIdProvider(ContentUris.parseId(uri).toInt())
-            }
-            cursor.setNotificationUri(context.contentResolver, uri)
-            cursor
-        } else {
-            throw IllegalArgumentException("UNKNOWN URI: $uri")
+        val context = context ?: return null
+        databaseHelper = DatabaseHelperImpl(DatabaseBuilder.getInstance(context))
+        return when (uriMatcher.match(uri)) {
+            USERFAVORITE -> databaseHelper.getAllUserProvider()
+            USERFAVORITE_ID -> databaseHelper.getByIdProvider(uri.lastPathSegment?.toInt())
+            else -> throw IllegalArgumentException("UNKNOWN URI: $uri")
         }
     }
 

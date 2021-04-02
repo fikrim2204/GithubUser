@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/not_found"
         android:visibility="gone"
+        android:contentDescription="@string/image_no_followers"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

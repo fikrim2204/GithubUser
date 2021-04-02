@@ -9,7 +9,7 @@
     android:layout_marginBottom="4dp"
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
-    android:background="?attr/cardBackgroundColor"
+    android:background="?attr/colorPrimary"
     android:elevation="1dp">
 
     <de.hdodenhof.circleimageview.CircleImageView

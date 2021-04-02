@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Aplikasi Favorit</string>
+    <string name="image_favorites">Gambar favorit</string>
+    <string name="empty_favorites">Kamu tidak memiliki pengguna favorit</string>
+    <string name="repository">Penyimpanan</string>
+    <string name="following">Mengikuti</string>
+    <string name="favorite_button">Tombol favorit</string>
+    <string name="followers">Pengikut</string>
+</resources>

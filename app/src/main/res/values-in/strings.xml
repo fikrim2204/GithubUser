@@ -19,4 +19,15 @@
     <string name="favorites">Favorit</string>
     <string name="empty_favorites">Kamu tidak memiliki pengguna favorit</string>
     <string name="image_favorites">Gambar Favorit</string>
+    <string name="about">Tentang</string>
+    <string name="creator">dari Fikri Maulana</string>
+    <string name="credit_like">Ilustrasi suka dibuat oleh Ivan Mesaroš dari Blush Design</string>
+    <string name="credit_searching">Ilustrasi pencarian dibuat oleh by Mariana Gonzalez Vega</string>
+    <string name="credit_github">Ikon Github dibuat oleh Pixel perfect dari www.flaticon.com</string>
+    <string name="logo_app">Logo aplikasi</string>
+    <string name="reminder">Pengingat</string>
+    <string name="reminder_message">Tambahkan pengguna favoritmu!</string>
+    <string name="reminder_time">09:00</string>
+    <string name="image_no_followers">Gambar tidak ada pengikut</string>
+    <string name="image_no_following">Gambar tidak mengikuti</string>
 </resources>

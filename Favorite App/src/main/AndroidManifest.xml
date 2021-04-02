@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubUser">
-        <activity android:name="rpl1pnp.fikri.favoriteapp.activity.MainActivity">
+        <activity android:name="rpl1pnp.fikri.favoriteapp.view.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

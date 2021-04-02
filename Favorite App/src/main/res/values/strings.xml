@@ -1,5 +1,9 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Favorite App</string>
     <string name="image_favorites">Favorite image</string>
-    <string name="empty_favorites">Empty Favorite</string>
+    <string name="empty_favorites">You have no favorites user</string>
+    <string name="repository">Repository</string>
+    <string name="following">Following</string>
+    <string name="favorite_button">Favorite button</string>
+    <string name="followers">Followers</string>
 </resources>

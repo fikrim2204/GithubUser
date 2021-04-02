@@ -7,15 +7,15 @@ import coil.load
 import rpl1pnp.fikri.favoriteapp.databinding.ItemMainBinding
 import rpl1pnp.fikri.favoriteapp.entity.UserFavorite
 
-class UserFavAdapter :
+class UserFavAdapter(private val listener: (UserFavorite) -> Unit) :
     RecyclerView.Adapter<UserFavAdapter.ViewHolder>() {
     var listUserFav: List<UserFavorite> = mutableListOf()
 
     class ViewHolder(private val binding: ItemMainBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(usersFav: UserFavorite) {
+        fun bind(usersFav: UserFavorite, listener: (UserFavorite) -> Unit) {
             binding.civProfile.load(usersFav.image)
             binding.tvUsernameProfiles.text = usersFav.username
-//            itemView.setOnClickListener { listener(usersFav) }
+            itemView.setOnClickListener { listener(usersFav) }
         }
     }
 
@@ -26,7 +26,7 @@ class UserFavAdapter :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(listUserFav[position])
+        holder.bind(listUserFav[position], listener)
     }
 
     override fun getItemCount(): Int = listUserFav.size
