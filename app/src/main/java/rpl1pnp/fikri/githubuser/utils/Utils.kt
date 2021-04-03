@@ -56,13 +56,3 @@ fun Cursor.toUserFavorite(): UserFavorite = UserFavorite(
     getInt(getColumnIndexOrThrow(USER_FAV_REPOS))
 )
 
-fun Cursor.toListUserFavorite(): ArrayList<UserFavorite> {
-    val listUserFavorite = ArrayList<UserFavorite>()
-
-    apply {
-        while (moveToNext()) {
-            listUserFavorite.add(toUserFavorite())
-        }
-    }
-    return listUserFavorite
-}

@@ -1,7 +1,6 @@
 package rpl1pnp.fikri.favoriteapp.view.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,7 +63,6 @@ class DetailFragment : Fragment() {
     ) {
         try {
             login = args.userId
-            Log.d("TAG", "$login")
             contentResolver.getUserById(login).observe(viewLifecycleOwner, {
                 userFavorite = it
                 with(binding) {

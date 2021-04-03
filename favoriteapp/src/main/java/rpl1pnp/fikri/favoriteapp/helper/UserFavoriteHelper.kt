@@ -2,7 +2,6 @@ package rpl1pnp.fikri.favoriteapp.helper
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -37,10 +36,7 @@ class UserFavoriteHelper(private val context: Context) {
             if (it.count > 0) {
                 while (it.moveToNext()) {
                     userFavorite.value = it.toUserFavorite()
-                    Log.d("TAG", "${userFavorite.value}")
                 }
-            } else {
-                Log.d("TAG", "kenapa ya")
             }
         }
         cursor?.close()

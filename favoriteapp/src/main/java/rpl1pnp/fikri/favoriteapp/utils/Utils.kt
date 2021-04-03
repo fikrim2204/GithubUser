@@ -2,7 +2,6 @@ package rpl1pnp.fikri.favoriteapp.utils
 
 import android.content.ContentValues
 import android.database.Cursor
-import android.view.View
 import rpl1pnp.fikri.favoriteapp.entity.UserFavorite
 
 const val USER_FAV_ID = "id"
@@ -14,22 +13,6 @@ const val USER_FAV_FOLLOWING = "following"
 const val USER_FAV_LOCATION = "location"
 const val USER_FAV_COMPANY = "company"
 const val USER_FAV_REPOS = "repositories"
-
-fun loading(loading: Boolean): Int {
-    return if (loading) {
-        View.VISIBLE
-    } else {
-        View.GONE
-    }
-}
-
-fun viewState(loading: Boolean): Int {
-    return if (!loading) {
-        View.VISIBLE
-    } else {
-        View.GONE
-    }
-}
 
 fun UserFavorite.toContentValues(): ContentValues =
     ContentValues().apply {

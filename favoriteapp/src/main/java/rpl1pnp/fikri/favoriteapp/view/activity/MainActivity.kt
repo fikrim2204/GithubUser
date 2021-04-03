@@ -61,10 +61,8 @@ class MainActivity : AppCompatActivity() {
             this.doubleBackToExitOnce = true
 
             val msg = getString(R.string.confirm_exit)
-            //displays a toast message when user clicks exit button
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 
-            //displays the toast message for a while
             Handler(mainLooper).postDelayed({
                 kotlin.run { doubleBackToExitOnce = false }
             }, 2000)
