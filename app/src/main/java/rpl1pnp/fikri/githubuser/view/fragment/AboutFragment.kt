@@ -60,7 +60,7 @@ class AboutFragment : Fragment() {
                 return true
             }
             R.id.setting -> {
-                    findNavController().navigate(R.id.action_aboutFragment_to_settingFragment)
+                findNavController().navigate(R.id.action_aboutFragment_to_settingFragment)
                 return true
             }
         }

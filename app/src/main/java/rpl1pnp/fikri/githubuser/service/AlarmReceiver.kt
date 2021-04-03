@@ -39,7 +39,6 @@ class AlarmReceiver : BroadcastReceiver() {
 
         if (message != null) {
             showAlarmNotification(context, title, message, notifId)
-            Log.d("TAG", "Notification running")
         }
     }
 
@@ -69,7 +68,8 @@ class AlarmReceiver : BroadcastReceiver() {
         val notificationManagerCompat =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        val builder = NotificationCompat.Builder(context, channelId).setContentIntent(pendingIntent).setSmallIcon(R.drawable.github)
+        val builder = NotificationCompat.Builder(context, channelId).setContentIntent(pendingIntent)
+            .setSmallIcon(R.drawable.github)
             .setContentTitle(title).setContentText(message)
             .setColor(ContextCompat.getColor(context, android.R.color.holo_blue_bright))
             .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000)).setSound(alarmSound)
@@ -99,9 +99,7 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeArray[0]))
-        Log.d("TAG", "${Integer.parseInt(timeArray[0])}")
         calendar.set(Calendar.MINUTE, Integer.parseInt(timeArray[1]))
-        Log.d("TAG", "${Integer.parseInt(timeArray[1])}")
         calendar.set(Calendar.SECOND, 0)
 
         val pendingIntent = PendingIntent.getBroadcast(context, ID_REPEATING, intent, 0)

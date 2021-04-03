@@ -31,19 +31,6 @@ fun viewState(loading: Boolean): Int {
     }
 }
 
-fun UserFavorite.toContentValues(): ContentValues =
-    ContentValues().apply {
-        put(USER_FAV_ID, id)
-        put(USER_FAV_NAME, name)
-        put(USER_FAV_IMAGE, image)
-        put(USER_FAV_USERNAME, username)
-        put(USER_FAV_FOLLOWERS, followers)
-        put(USER_FAV_FOLLOWING, following)
-        put(USER_FAV_LOCATION, location)
-        put(USER_FAV_COMPANY, company)
-        put(USER_FAV_REPOS, repositories)
-    }
-
 fun ContentValues.toUserFavorite(): UserFavorite =
     UserFavorite(
         id = getAsInteger(USER_FAV_ID),

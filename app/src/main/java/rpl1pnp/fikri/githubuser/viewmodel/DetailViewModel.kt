@@ -1,6 +1,5 @@
 package rpl1pnp.fikri.githubuser.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,8 +12,8 @@ import retrofit2.Response
 import rpl1pnp.fikri.githubuser.model.DataFollow
 import rpl1pnp.fikri.githubuser.model.FollowersResponse
 import rpl1pnp.fikri.githubuser.model.UserSingleResponse
-import rpl1pnp.fikri.githubuser.repository.local.helper.DatabaseHelperImpl
 import rpl1pnp.fikri.githubuser.repository.local.entity.UserFavorite
+import rpl1pnp.fikri.githubuser.repository.local.helper.DatabaseHelperImpl
 import rpl1pnp.fikri.githubuser.repository.network.ApiRepo
 import rpl1pnp.fikri.githubuser.repository.network.Constant
 
@@ -50,31 +49,9 @@ class DetailViewModel(private val dbHelper: DatabaseHelperImpl) : ViewModel() {
             } catch (e: Exception) {
                 _isLoading.value = false
                 _responseFailure.value = "Something went wrong when get user"
-                Log.d("TAG", "${e.message}")
             }
         }
     }
-
-//    : LiveData<List<UserFavorite>> {
-//        return userFavoriteHelper.getUser(context)
-//    }
-//    {
-//        try {
-//            _userFavoriteDb.value = userFavoriteHelper.getUser(context)
-//        } catch (e: Exception) {
-//            _isLoading.value = false
-//            _responseFailure.value = "Something went wrong when get user"
-//            Log.d("TAG", "${e.message}")
-//        }
-
-//        val cursor = context.contentResolver.query(CONTENT_URI, null, null, null, null)
-//        cursor?.let {
-//            _userFavoriteDb.value = it.toListUserFavorite()
-//            it.close()
-//        }
-
-//
-//    }
 
     fun getUserById(id: Int?) {
         viewModelScope.launch {
@@ -86,27 +63,6 @@ class DetailViewModel(private val dbHelper: DatabaseHelperImpl) : ViewModel() {
             }
         }
     }
-//    {
-//        try {
-//            _searchUserbyId.value =
-
-//            val uri = "$CONTENT_URI/$id".toUri()
-//            val cursor = context.contentResolver.query(uri, null, null, null, null)
-//            cursor?.let {
-//                it.toUserFavorite()
-//                it.close()
-//            }
-//        } catch (e: Exception) {
-//            _responseFailure.value = "Something went wrong when searching user"
-//        }
-
-//        try {
-//            val search = dbHelper.getByIdProvider(id)
-//            _searchUserbyId.value = search.toUserFavorite()
-//        } catch (e: Exception) {
-//            _responseFailure.value = "Something went wrong when searching user"
-//        }
-//    }
 
     fun insert(userFavorite: UserFavorite) {
         viewModelScope.launch {
@@ -114,21 +70,9 @@ class DetailViewModel(private val dbHelper: DatabaseHelperImpl) : ViewModel() {
                 dbHelper.insert(userFavorite)
             } catch (e: Exception) {
                 _responseFailure.value = "Something went wrong when trying to insert user"
-                Log.d("TAG", "${e.message}")
             }
         }
     }
-
-//        userFavoriteHelper.insertFavorite(userFavorite, context)
-//    {
-//        try {
-////            val cursor = context.contentResolver.insert(CONTENT_URI, userFavorite.toContentValues())
-////            dbHelper.insertProvider(cursor)
-//        } catch (e: Exception) {
-//            _responseFailure.value = "Something went wrong when trying to insert user"
-//            Log.d("TAG", "${e.message}")
-//        }
-//    }
 
     fun delete(id: Int?) {
         viewModelScope.launch {
@@ -139,18 +83,6 @@ class DetailViewModel(private val dbHelper: DatabaseHelperImpl) : ViewModel() {
             }
         }
     }
-
-//    = userFavoriteHelper.deleteFavorite(id, context)
-//    {
-//        try {
-////            val uri = "$CONTENT_URI/$id".toUri()
-////            val cursor = context.contentResolver.delete(uri, null, null)
-////            dbHelper.deleteProvider(cursor)
-//        } catch (e: Exception) {
-//            _responseFailure.value = "Something went wrong when trying to delete user"
-//            Log.d("TAG", "${e.message}")
-//        }
-//    }
 
     fun getUserDetail(login: String?) {
         _isLoading.value = true

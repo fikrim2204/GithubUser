@@ -9,6 +9,5 @@ object Constant {
     const val FOLLOWERS = "/followers"
     const val FOLLOWING = "/following"
     const val AUTHORIZATION = BuildConfig.TOKEN
-    const val TABLE_NAME = ""
 
 }

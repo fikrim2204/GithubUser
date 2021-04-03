@@ -10,6 +10,6 @@ interface DatabaseHelper {
     fun deleteProvider(id: Int?): Int
     suspend fun getAllUser(): List<UserFavorite>
     suspend fun getById(id: Int?): UserFavorite
-    suspend fun insert(user: UserFavorite?) : Long
-    suspend fun delete(id: Int?) : Int
+    suspend fun insert(user: UserFavorite?): Long
+    suspend fun delete(id: Int?): Int
 }

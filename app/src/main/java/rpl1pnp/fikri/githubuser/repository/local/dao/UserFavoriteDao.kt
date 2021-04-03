@@ -19,7 +19,7 @@ interface UserFavoriteDao {
     fun insertProvider(values: UserFavorite?): Long
 
     @Query("DELETE FROM userFavorite WHERE id=:id")
-    fun deleteProvider(id: Int?) : Int
+    fun deleteProvider(id: Int?): Int
 
     @Query("SELECT * FROM userFavorite ORDER BY name ASC")
     suspend fun getAll(): List<UserFavorite>

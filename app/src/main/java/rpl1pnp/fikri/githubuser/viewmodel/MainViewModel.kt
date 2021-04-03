@@ -12,7 +12,7 @@ import rpl1pnp.fikri.githubuser.model.UserSingleResponse
 import rpl1pnp.fikri.githubuser.repository.network.ApiRepo
 import rpl1pnp.fikri.githubuser.repository.network.Constant
 
-class MainViewModel() : ViewModel() {
+class MainViewModel : ViewModel() {
     private val _response = MutableLiveData<List<UserSingleResponse>?>()
     val listResponse: LiveData<List<UserSingleResponse>?> = _response
     private val _responseFailure = MutableLiveData<String>()
