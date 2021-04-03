@@ -7,7 +7,6 @@
     <string name="following">Mengikuti</string>
     <string name="favorite_button">Tombol favorit</string>
     <string name="followers">Pengikut</string>
-    <string name="setting">Pengaturan</string>
     <string name="change_language">Ganti bahasa</string>
     <string name="confirm_exit">Tekan lagi untuk keluar</string>
 </resources>
