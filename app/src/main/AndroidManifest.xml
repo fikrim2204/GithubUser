@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubUser">
         <provider
-            android:name=".provider.UserFavoriteProvider"
+            android:name="rpl1pnp.fikri.githubuser.repository.local.provider.UserFavoriteProvider"
             android:authorities="rpl1pnp.fikri.githubuser"
             android:enabled="true"
             android:exported="true"

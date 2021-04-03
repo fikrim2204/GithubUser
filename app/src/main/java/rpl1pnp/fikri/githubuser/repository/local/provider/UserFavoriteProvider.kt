@@ -1,4 +1,4 @@
-package rpl1pnp.fikri.githubuser.provider
+package rpl1pnp.fikri.githubuser.repository.local.provider
 
 import android.content.ContentProvider
 import android.content.ContentValues
@@ -6,7 +6,7 @@ import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
 import rpl1pnp.fikri.githubuser.repository.local.DatabaseBuilder
-import rpl1pnp.fikri.githubuser.repository.local.DatabaseHelperImpl
+import rpl1pnp.fikri.githubuser.repository.local.helper.DatabaseHelperImpl
 import rpl1pnp.fikri.githubuser.utils.toUserFavorite
 
 class UserFavoriteProvider : ContentProvider() {

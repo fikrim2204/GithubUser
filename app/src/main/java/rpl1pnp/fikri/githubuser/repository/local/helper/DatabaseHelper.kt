@@ -1,4 +1,4 @@
-package rpl1pnp.fikri.githubuser.repository.local
+package rpl1pnp.fikri.githubuser.repository.local.helper
 
 import android.database.Cursor
 import rpl1pnp.fikri.githubuser.repository.local.entity.UserFavorite

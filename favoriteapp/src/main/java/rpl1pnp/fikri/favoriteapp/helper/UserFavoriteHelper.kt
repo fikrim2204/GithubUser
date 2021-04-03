@@ -34,7 +34,7 @@ class UserFavoriteHelper(private val context: Context) {
         val cursor =
             context.contentResolver.query("$CONTENT_URI/$id".toUri(), null, null, null, null)
         cursor?.let {
-            if (it != null && it.count > 0) {
+            if (it.count > 0) {
                 while (it.moveToNext()) {
                     userFavorite.value = it.toUserFavorite()
                     Log.d("TAG", "${userFavorite.value}")

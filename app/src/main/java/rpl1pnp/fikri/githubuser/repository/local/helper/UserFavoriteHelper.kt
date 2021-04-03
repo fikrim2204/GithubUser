@@ -1,12 +1,12 @@
-package rpl1pnp.fikri.githubuser.repository.local
+package rpl1pnp.fikri.githubuser.repository.local.helper
 
 import android.content.Context
 import android.net.Uri
 import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import rpl1pnp.fikri.githubuser.provider.UserFavoriteProvider
 import rpl1pnp.fikri.githubuser.repository.local.entity.UserFavorite
+import rpl1pnp.fikri.githubuser.repository.local.provider.UserFavoriteProvider
 import rpl1pnp.fikri.githubuser.utils.toContentValues
 import rpl1pnp.fikri.githubuser.utils.toListUserFavorite
 import rpl1pnp.fikri.githubuser.utils.toUserFavorite
@@ -17,39 +17,33 @@ class UserFavoriteHelper() {
         val CONTENT_URI = Uri.parse("content://${UserFavoriteProvider.AUTHORITY}/userFavorite")
     }
 
-    fun getUser(context: Context): List<UserFavorite> {
-        var listUserFavorite: List<UserFavorite> = mutableListOf()
+    suspend fun getUser(context: Context): LiveData<List<UserFavorite>?> {
+        val listUserFavorite = MutableLiveData<List<UserFavorite>?>()
 
         val cursor = context.contentResolver.query(CONTENT_URI, null, null, null, null)
         cursor?.let {
-            listUserFavorite = it.toListUserFavorite()
+            listUserFavorite.value = it.toListUserFavorite()
         }
         cursor?.close()
         return listUserFavorite
     }
 
-    fun getUserById(id: Int?, context: Context): UserFavorite {
-        var userFavorite = UserFavorite(null, null, null, null, null, null, null, null, null)
+    suspend fun getUserById(id: Int?, context: Context): LiveData<UserFavorite> {
+        val userFavorite = MutableLiveData<UserFavorite>()
         val cursor =
             context.contentResolver.query("$CONTENT_URI/$id".toUri(), null, null, null, null)
         cursor?.let {
-            userFavorite = it.toUserFavorite()
+            userFavorite.value = it.toUserFavorite()
         }
         cursor?.close()
         return userFavorite
     }
 
-    fun insertFavorite(userFavorite: UserFavorite, context: Context): LiveData<Long> {
-        val userFavoriteLive = MutableLiveData<Long>()
-
-        val cursor = context.contentResolver.insert(CONTENT_URI, userFavorite.toContentValues())
-        cursor?.let {
-            userFavoriteLive.value = 1
-        }
-        return userFavoriteLive
+    suspend fun insertFavorite(userFavorite: UserFavorite, context: Context) {
+        context.contentResolver.insert(CONTENT_URI, userFavorite.toContentValues())
     }
 
-    fun deleteFavorite(id: Int?, context: Context){
+    suspend fun deleteFavorite(id: Int?, context: Context) {
         context.contentResolver.delete("$CONTENT_URI/$id".toUri(), null, null)
     }
 }

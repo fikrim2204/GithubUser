@@ -1,6 +1,5 @@
 package rpl1pnp.fikri.githubuser.viewmodel
 
-import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,15 +13,12 @@ import retrofit2.Response
 import rpl1pnp.fikri.githubuser.model.DataFollow
 import rpl1pnp.fikri.githubuser.model.FollowersResponse
 import rpl1pnp.fikri.githubuser.model.UserSingleResponse
-import rpl1pnp.fikri.githubuser.provider.UserFavoriteProvider
-import rpl1pnp.fikri.githubuser.repository.local.DatabaseHelperImpl
-import rpl1pnp.fikri.githubuser.repository.local.UserFavoriteHelper
+import rpl1pnp.fikri.githubuser.repository.local.helper.DatabaseHelperImpl
 import rpl1pnp.fikri.githubuser.repository.local.entity.UserFavorite
 import rpl1pnp.fikri.githubuser.repository.network.ApiRepo
 import rpl1pnp.fikri.githubuser.repository.network.Constant
 
 class DetailViewModel(private val dbHelper: DatabaseHelperImpl) : ViewModel() {
-    private val userFavoriteHelper = UserFavoriteHelper()
     private val _searchUserbyId = MutableLiveData<UserFavorite>()
     val userSearchById: LiveData<UserFavorite> = _searchUserbyId
     private val _userFavoriteDb = MutableLiveData<List<UserFavorite>>()
@@ -42,12 +38,8 @@ class DetailViewModel(private val dbHelper: DatabaseHelperImpl) : ViewModel() {
     private val _failed = MutableLiveData<String?>()
     val failedResponse: LiveData<String?> = _failed
 
-    companion object {
-        val CONTENT_URI = Uri.parse("content://${UserFavoriteProvider.AUTHORITY}/userFavorite")
-    }
-
     init {
-//        getUser()
+        getUser()
     }
 
     fun getUser() {
@@ -61,7 +53,6 @@ class DetailViewModel(private val dbHelper: DatabaseHelperImpl) : ViewModel() {
                 Log.d("TAG", "${e.message}")
             }
         }
-
     }
 
 //    : LiveData<List<UserFavorite>> {
@@ -127,6 +118,7 @@ class DetailViewModel(private val dbHelper: DatabaseHelperImpl) : ViewModel() {
             }
         }
     }
+
 //        userFavoriteHelper.insertFavorite(userFavorite, context)
 //    {
 //        try {

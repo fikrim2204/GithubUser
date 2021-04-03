@@ -14,8 +14,8 @@ import rpl1pnp.fikri.githubuser.R
 import rpl1pnp.fikri.githubuser.databinding.ActivityDetailBinding
 import rpl1pnp.fikri.githubuser.model.UserSingleResponse
 import rpl1pnp.fikri.githubuser.repository.local.DatabaseBuilder
-import rpl1pnp.fikri.githubuser.repository.local.DatabaseHelperImpl
 import rpl1pnp.fikri.githubuser.repository.local.entity.UserFavorite
+import rpl1pnp.fikri.githubuser.repository.local.helper.DatabaseHelperImpl
 import rpl1pnp.fikri.githubuser.utils.ViewModelFactory
 import rpl1pnp.fikri.githubuser.utils.loading
 import rpl1pnp.fikri.githubuser.view.sectionpage.SectionPageAdapter
@@ -41,13 +41,13 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        favoriteButton()
         setupViewModel()
         checkSavedInstance(savedInstanceState)
         setSupportActionBar(binding.toolbar)
         initBackButton()
         viewPager()
         viewModelObserve()
-        favoriteButton()
     }
 
     private fun checkSavedInstance(savedInstanceState: Bundle?) {
@@ -83,6 +83,8 @@ class DetailActivity : AppCompatActivity() {
 
     private fun viewModelObserve() {
         viewModel.listResponseDetail.observe(this, { item ->
+            binding.fabFavorite.visibility = View.VISIBLE
+            binding.fabFavorite.hide()
             userDetail = item
             viewModel.getUserById(userDetail?.id)
             supportActionBar?.apply {
@@ -176,11 +178,13 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun fabButtonState() {
+        binding.fabFavorite.hide()
         if (saved) {
             binding.fabFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
         } else {
             binding.fabFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24)
         }
+        binding.fabFavorite.show()
     }
 
 

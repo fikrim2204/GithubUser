@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import rpl1pnp.fikri.githubuser.R
+import rpl1pnp.fikri.githubuser.view.activity.SplashScreenActivity
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -62,10 +63,13 @@ class AlarmReceiver : BroadcastReceiver() {
         val channelId = "channel_1"
         val channelName = "alarm_manager_channel"
 
+        val intent = Intent(context, SplashScreenActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
+
         val notificationManagerCompat =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        val builder = NotificationCompat.Builder(context, channelId).setSmallIcon(R.drawable.github)
+        val builder = NotificationCompat.Builder(context, channelId).setContentIntent(pendingIntent).setSmallIcon(R.drawable.github)
             .setContentTitle(title).setContentText(message)
             .setColor(ContextCompat.getColor(context, android.R.color.holo_blue_bright))
             .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000)).setSound(alarmSound)
@@ -107,8 +111,8 @@ class AlarmReceiver : BroadcastReceiver() {
             AlarmManager.INTERVAL_DAY,
             pendingIntent
         )
-
-        Toast.makeText(context, "Repeating alarm set up", Toast.LENGTH_SHORT).show()
+        val msg = context.getString(R.string.reminder_on)
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
     }
 
     fun cancelAlarm(context: Context) {
@@ -120,6 +124,7 @@ class AlarmReceiver : BroadcastReceiver() {
 
         alarmManager.cancel(pendingIntent)
 
-        Toast.makeText(context, "Repeating alarm canceled", Toast.LENGTH_SHORT).show()
+        val msg = context.getString(R.string.reminder_off)
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
     }
 }

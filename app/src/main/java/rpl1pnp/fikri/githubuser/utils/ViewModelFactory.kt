@@ -2,7 +2,7 @@ package rpl1pnp.fikri.githubuser.utils
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import rpl1pnp.fikri.githubuser.repository.local.DatabaseHelperImpl
+import rpl1pnp.fikri.githubuser.repository.local.helper.DatabaseHelperImpl
 import rpl1pnp.fikri.githubuser.viewmodel.DetailViewModel
 
 @Suppress("UNCHECKED_CAST")

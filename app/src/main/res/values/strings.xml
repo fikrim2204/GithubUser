@@ -24,9 +24,12 @@
     <string name="credit_github">Icon Github made by Pixel perfect from www.flaticon.com</string>
     <string name="logo_app">Logo app</string>
     <string name="reminder">Reminder</string>
-    <string name="reminder_message">Add your favorites user again!</string>
+    <string name="reminder_message">Explore user on Github!</string>
     <string name="reminder_time">09:00</string>
     <string name="image_no_followers">Image no followers</string>
     <string name="image_no_following">Image no following</string>
     <string name="search">Search</string>
+    <string name="reminder_on">Reminder on</string>
+    <string name="reminder_off">Reminder off</string>
+    <string name="confirm_exit">Please press again to exit</string>
 </resources>

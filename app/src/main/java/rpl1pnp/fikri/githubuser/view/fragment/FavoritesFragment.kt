@@ -11,7 +11,7 @@ import rpl1pnp.fikri.githubuser.R
 import rpl1pnp.fikri.githubuser.adapter.UserFavAdapter
 import rpl1pnp.fikri.githubuser.databinding.FragmentFavoritesBinding
 import rpl1pnp.fikri.githubuser.repository.local.DatabaseBuilder
-import rpl1pnp.fikri.githubuser.repository.local.DatabaseHelperImpl
+import rpl1pnp.fikri.githubuser.repository.local.helper.DatabaseHelperImpl
 import rpl1pnp.fikri.githubuser.utils.ViewModelFactory
 import rpl1pnp.fikri.githubuser.view.activity.DetailActivity
 import rpl1pnp.fikri.githubuser.view.activity.MainActivity
@@ -104,11 +104,16 @@ class FavoritesFragment : Fragment() {
                 return true
             }
             R.id.setting -> {
-                    findNavController().navigate(R.id.action_favoritesFragment_to_settingFragment)
+                findNavController().navigate(R.id.action_favoritesFragment_to_settingFragment)
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getUser()
     }
 
     override fun onDestroy() {
