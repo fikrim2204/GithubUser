@@ -22,7 +22,7 @@ import java.util.*
 class AlarmReceiver : BroadcastReceiver() {
 
     companion object {
-        const val TYPE_REPEATING = "Repeating Alarm"
+        const val TYPE_REPEATING = "Reminder"
         const val EXTRA_MESSAGE = "message"
         const val EXTRA_TYPE = "type"
 
